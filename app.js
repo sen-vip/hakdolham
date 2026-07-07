@@ -55,6 +55,18 @@ const tools = [
     updated: "2026.07"
   },
   {
+    id: "jechul-moa",
+    name: "제출모아",
+    category: "문서 자동화",
+    description: "제출 자료와 스캔 파일을 한곳에 모아 확인하고 정리하는 자료 수합 도구입니다.",
+    tags: ["제출", "자료수합", "파일정리"],
+    status: "공개저장소",
+    icon: "📮",
+    url: "https://github.com/sen-vip/jechul-moa",
+    actionLabel: "GitHub",
+    updated: "2026.07"
+  },
+  {
     id: "pumshot",
     name: "품샷",
     category: "문서 자동화",
@@ -177,6 +189,7 @@ function statusClass(status) {
   if (status === "개선중") return "status-improving";
   if (status === "실험중") return "status-lab";
   if (status === "블로그 예정") return "status-blog";
+  if (status === "공개저장소") return "status-repo";
   if (status === "비공개") return "status-hidden";
   return "status-private";
 }
@@ -214,7 +227,7 @@ function renderCard(tool) {
   const isFavorite = state.favorites.has(tool.id);
   const tags = tool.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
   const link = tool.url
-    ? `<a class="open-link" href="${tool.url}" target="_blank" rel="noopener noreferrer">열기</a>`
+    ? `<a class="open-link" href="${tool.url}" target="_blank" rel="noopener noreferrer">${tool.actionLabel || "열기"}</a>`
     : `<span class="disabled-link" title="${tool.name}은 현재 바로 열기 링크가 없습니다.">${disabledLabel(tool)}</span>`;
 
   return `

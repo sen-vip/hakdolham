@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>학돌함 v0.1.3 | 학교를 잘 돌아가게 하는 도구함</title>
+  <title>학돌함 v0.1.4 | 학교를 잘 돌아가게 하는 도구함</title>
   <meta name="description" content="학교를 잘 돌아가게 하는 행정 자동화 도구를 한곳에 모은 학돌함입니다." />
   <link rel="stylesheet" href="./style.css" />
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
@@ -25,9 +25,19 @@
         </div>
       </nav>
 
-      <div class="hakdolt-tip" role="note" aria-label="학돌T 안내">
-        <span class="hakdolt-tip-icon" aria-hidden="true">🐥</span>
-        <span class="hakdolt-tip-text">자주 쓰는 도구는 즐겨찾기해두면 더 빠르게 꺼내 쓸 수 있어요.</span>
+      <div class="hakdolt-brief" role="note" aria-label="학돌T 브리핑">
+        <div class="brief-left">
+          <span class="hakdolt-brief-icon" aria-hidden="true">🐣</span>
+          <div class="brief-copy">
+            <div class="brief-title-row">
+              <strong>학돌T 브리핑</strong>
+              <span class="brief-badge">도구 안내</span>
+            </div>
+            <p>제출모아를 문서 자동화 칸에 새로 올려두었어요.</p>
+            <small>자주 쓰는 도구는 별표를 눌러 앞칸에 고정해두세요.</small>
+          </div>
+        </div>
+        <a class="brief-action" href="#toolGrid">둘러보기</a>
       </div>
 
       <section class="hero-card">
@@ -48,7 +58,7 @@
           <div class="hero-meta" aria-label="도구 요약">
             <span><b id="totalCount">0</b>개 도구</span>
             <span><b id="favoriteCount">0</b>개 즐겨찾기</span>
-            <span>v0.1.3</span>
+            <span>v0.1.4</span>
           </div>
         </div>
 
