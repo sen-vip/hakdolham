@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>학돌함 v0.1.1 | 학교를 잘 돌아가게 하는 도구함</title>
+  <meta name="description" content="학교를 잘 돌아가게 하는 행정 자동화 도구를 한곳에 모은 학돌함입니다." />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <nav class="topbar" aria-label="상단 메뉴">
+        <a class="brand" href="./index.html" aria-label="학돌함 홈">
+          <span class="brand-mark">◆</span>
+          <span>
+            <strong>학돌함</strong>
+            <small>Hakdol Box</small>
+          </span>
+        </a>
+        <div class="top-actions">
+          <button class="ghost-button" id="favoriteOnlyBtn" type="button" aria-pressed="false">즐겨찾기만</button>
+          <a class="ghost-link" href="#toolGrid">도구 보기</a>
+        </div>
+      </nav>
+
+      <section class="hero-card">
+        <div class="hero-copy">
+          <p class="eyebrow">학교를 잘 돌아가게 하는 작은 보석상자</p>
+          <h1>필요한 행정 자동화 도구를<br />하나씩 꺼내 쓰세요.</h1>
+          <p class="hero-desc">
+            학돌함은 학교 행정 업무에 필요한 자동화 도구들을 한곳에 모아둔 포털입니다.
+            문서, 일정, 카드, 계약, 점검 도구를 빠르게 찾고 실행할 수 있어요.
+          </p>
+
+          <div class="search-wrap">
+            <label for="searchInput" class="sr-only">도구 검색</label>
+            <input id="searchInput" type="search" placeholder="도구명, 업무명, 태그로 검색해보세요. 예: 공문, 카드, 학사일정" autocomplete="off" />
+            <button id="clearSearchBtn" type="button" aria-label="검색어 지우기">×</button>
+          </div>
+
+          <div class="hero-meta" aria-label="도구 요약">
+            <span><b id="totalCount">0</b>개 도구</span>
+            <span><b id="favoriteCount">0</b>개 즐겨찾기</span>
+            <span>v0.1.1</span>
+          </div>
+        </div>
+
+        <div class="treasure-box" aria-hidden="true">
+          <div class="sparkle sparkle-a">✦</div>
+          <div class="sparkle sparkle-b">✧</div>
+          <div class="box-lid"></div>
+          <div class="box-body">
+            <span class="gem gem-1"></span>
+            <span class="gem gem-2"></span>
+            <span class="gem gem-3"></span>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section-head">
+        <div>
+          <p class="eyebrow">Tool Shelf</p>
+          <h2>오늘 꺼내 쓸 도구</h2>
+        </div>
+        <p class="section-desc">자주 쓰는 도구는 별표를 눌러 학돌함 앞칸에 고정하세요.</p>
+      </section>
+
+      <section class="category-scroller" aria-label="도구 분류">
+        <button class="category-chip active" type="button" data-category="전체">전체</button>
+        <button class="category-chip" type="button" data-category="일정·루틴">일정·루틴</button>
+        <button class="category-chip" type="button" data-category="문서 자동화">문서 자동화</button>
+        <button class="category-chip" type="button" data-category="계약·지출·카드">계약·지출·카드</button>
+        <button class="category-chip" type="button" data-category="점검·확인">점검·확인</button>
+        <button class="category-chip" type="button" data-category="초과근무·근태">초과근무·근태</button>
+        <button class="category-chip" type="button" data-category="실험실">실험실</button>
+      </section>
+
+      <section class="favorite-panel" id="favoritePanel" hidden>
+        <div class="panel-title">
+          <span>★</span>
+          <strong>즐겨찾는 도구</strong>
+        </div>
+        <div class="mini-grid" id="favoriteGrid"></div>
+      </section>
+
+      <section class="tool-grid" id="toolGrid" aria-live="polite"></section>
+
+      <section class="empty-state" id="emptyState" hidden>
+        <div>◇</div>
+        <strong>검색 결과가 없어요.</strong>
+        <p>다른 업무명이나 태그로 다시 찾아보세요.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>학돌함</span>
+      <span>학교를 잘 돌아가게 하는 행정 자동화 도구함</span>
+      <span>학돌랩 · by senvip</span>
+    </footer>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
