@@ -1,6 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-label="학돌함 favicon">
-  <rect width="64" height="64" rx="15" fill="#071A52"/>
-  <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle"
-        font-size="38"
-        font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif">💎</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-label="학돌함 파비콘">
+  <defs>
+    <linearGradient id="bg" x1="9" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8B7BFF"/>
+      <stop offset="0.52" stop-color="#6E74EE"/>
+      <stop offset="1" stop-color="#58A7E9"/>
+    </linearGradient>
+
+    <linearGradient id="gemTop" x1="19" y1="21" x2="45" y2="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#78F1E8"/>
+      <stop offset="1" stop-color="#35C9E8"/>
+    </linearGradient>
+
+    <linearGradient id="gemLeft" x1="20" y1="26" x2="31" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#38D8D7"/>
+      <stop offset="1" stop-color="#168EC4"/>
+    </linearGradient>
+
+    <linearGradient id="gemRight" x1="33" y1="26" x2="45" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2FBDE5"/>
+      <stop offset="1" stop-color="#1269B0"/>
+    </linearGradient>
+
+    <linearGradient id="gemCenter" x1="32" y1="24" x2="32" y2="47" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#B9FFF8"/>
+      <stop offset="1" stop-color="#18A9D5"/>
+    </linearGradient>
+
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#23305F" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect x="4" y="4" width="56" height="56" rx="15" fill="url(#bg)"/>
+
+  <g filter="url(#softShadow)">
+    <path d="M21.5 23.5h21L47 30H17l4.5-6.5Z" fill="url(#gemTop)"/>
+    <path d="M17 30h13.4L32 47 17 30Z" fill="url(#gemLeft)"/>
+    <path d="M33.6 30H47L32 47l1.6-17Z" fill="url(#gemRight)"/>
+    <path d="M30.4 30h3.2L32 47 30.4 30Z" fill="url(#gemCenter)"/>
+    <path d="M21.5 23.5 30.4 30H17l4.5-6.5Z" fill="#AFFFF9" opacity="0.58"/>
+    <path d="M42.5 23.5 33.6 30H47l-4.5-6.5Z" fill="#25ACDA" opacity="0.55"/>
+    <path d="M30.4 30 32 23.5 33.6 30h-3.2Z" fill="#E7FFFB" opacity="0.78"/>
+    <path d="M21.5 23.5h21M17 30h30M30.4 30 32 47M33.6 30 32 47M21.5 23.5 30.4 30M42.5 23.5 33.6 30" stroke="#EFFFFD" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round" opacity="0.52"/>
+  </g>
 </svg>
