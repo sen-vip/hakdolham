@@ -399,6 +399,99 @@ grid.addEventListener("click", event => {
   render();
 });
 
+
+const amountInput = document.querySelector("#amountInput");
+const amountOutput = document.querySelector("#amountOutput");
+const copyAmountBtn = document.querySelector("#copyAmountBtn");
+
+function formatNumberWithComma(value) {
+  return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function numberToKoreanMoney(input) {
+  const cleaned = String(input).replace(/[^\d]/g, "");
+  if (!cleaned) return "";
+
+  const normalized = cleaned.replace(/^0+/, "") || "0";
+  if (normalized === "0") return "금영원";
+
+  const digitUnits = ["", "십", "백", "천"];
+  const groupUnits = ["", "만", "억", "조", "경"];
+  const nums = ["", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"];
+
+  const groups = [];
+  let rest = normalized;
+
+  while (rest.length > 0) {
+    groups.unshift(rest.slice(-4));
+    rest = rest.slice(0, -4);
+  }
+
+  let result = "";
+
+  groups.forEach((group, index) => {
+    const groupNum = Number(group);
+    if (!groupNum) return;
+
+    const padded = group.padStart(4, "0");
+    let groupText = "";
+
+    for (let i = 0; i < 4; i++) {
+      const digit = Number(padded[i]);
+      if (!digit) continue;
+
+      const pos = 3 - i;
+      groupText += nums[digit] + digitUnits[pos];
+    }
+
+    const unitIndex = groups.length - index - 1;
+    result += groupText + groupUnits[unitIndex];
+  });
+
+  return "금" + result + "원";
+}
+
+function updateAmountConverter() {
+  if (!amountInput || !amountOutput) return;
+
+  const rawDigits = amountInput.value.replace(/[^\d]/g, "");
+  if (!rawDigits) {
+    amountOutput.textContent = "금액을 입력해보세요.";
+    amountOutput.classList.remove("is-filled");
+    return;
+  }
+
+  amountInput.value = formatNumberWithComma(rawDigits);
+  amountOutput.textContent = numberToKoreanMoney(rawDigits);
+  amountOutput.classList.add("is-filled");
+}
+
+if (amountInput) {
+  amountInput.addEventListener("input", updateAmountConverter);
+  amountInput.addEventListener("focus", event => event.target.select());
+}
+
+if (copyAmountBtn) {
+  copyAmountBtn.addEventListener("click", async () => {
+    if (!amountOutput || !amountOutput.classList.contains("is-filled")) return;
+
+    const text = amountOutput.textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      copyAmountBtn.textContent = "복사됨";
+      setTimeout(() => {
+        copyAmountBtn.textContent = "복사";
+      }, 1200);
+    } catch {
+      copyAmountBtn.textContent = "복사 실패";
+      setTimeout(() => {
+        copyAmountBtn.textContent = "복사";
+      }, 1200);
+    }
+  });
+}
+
+
 const todoForm = document.querySelector("#todoForm");
 const todoInput = document.querySelector("#todoInput");
 const todoList = document.querySelector("#todoList");
