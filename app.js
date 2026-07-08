@@ -1,27 +1,5 @@
 const tools = [
   {
-    id: "monthly-tasks",
-    name: "학돌 월별 필수업무",
-    category: "일정·루틴",
-    description: "월별 행정실 필수업무를 한눈에 확인하고 완료 체크할 수 있는 도구입니다.",
-    tags: ["월별업무", "루틴", "신규직원"],
-    status: "운영중",
-    icon: "📅",
-    url: "https://sen-vip.github.io/hakdol-monthly-tasks/",
-    updated: "2026.07"
-  },
-  {
-    id: "routine",
-    name: "학돌 루틴",
-    category: "일정·루틴",
-    description: "행정실 반복 업무를 주기별로 정리하고 검색·필터링하는 루틴 보드입니다.",
-    tags: ["루틴", "반복업무", "체크"],
-    status: "개선중",
-    icon: "🧭",
-    url: "https://sen-vip.github.io/hakdol-routine/",
-    updated: "2026.07"
-  },
-  {
     id: "life-calendar",
     name: "우리학교 생활달력",
     category: "일정·루틴",
@@ -42,6 +20,28 @@ const tools = [
     icon: "🗓️",
     url: "https://sen-vip.github.io/school-calendar/",
     updated: "2026.06"
+  },
+  {
+    id: "monthly-tasks",
+    name: "학돌 월별 필수업무",
+    category: "일정·루틴",
+    description: "월별 행정실 필수업무를 한눈에 확인하고 완료 체크할 수 있는 도구입니다.",
+    tags: ["월별업무", "루틴", "신규직원"],
+    status: "운영중",
+    icon: "📅",
+    url: "https://sen-vip.github.io/hakdol-monthly-tasks/",
+    updated: "2026.07"
+  },
+  {
+    id: "routine",
+    name: "학돌 루틴",
+    category: "일정·루틴",
+    description: "행정실 반복 업무를 주기별로 정리하고 검색·필터링하는 루틴 보드입니다.",
+    tags: ["루틴", "반복업무", "체크"],
+    status: "개선중",
+    icon: "🧭",
+    url: "https://sen-vip.github.io/hakdol-routine/",
+    updated: "2026.07"
   },
   {
     id: "gongmun-fit",
@@ -170,12 +170,14 @@ const state = {
   query: "",
   category: "전체",
   favoriteOnly: false,
-  favorites: new Set(JSON.parse(localStorage.getItem("hakdolham:favorites") || "[]"))
+  quickTab: "frequent",
+  favorites: new Set(JSON.parse(localStorage.getItem("hakdolham:favorites") || "[]")),
+  recentUses: JSON.parse(localStorage.getItem("hakdolham:recentUses") || "[]")
 };
 
 const grid = document.querySelector("#toolGrid");
-const favoriteGrid = document.querySelector("#favoriteGrid");
-const favoritePanel = document.querySelector("#favoritePanel");
+const quickGrid = document.querySelector("#quickGrid");
+const quickEmpty = document.querySelector("#quickEmpty");
 const emptyState = document.querySelector("#emptyState");
 const searchInput = document.querySelector("#searchInput");
 const clearSearchBtn = document.querySelector("#clearSearchBtn");
@@ -202,6 +204,10 @@ function saveFavorites() {
   localStorage.setItem("hakdolham:favorites", JSON.stringify([...state.favorites]));
 }
 
+function saveRecentUses() {
+  localStorage.setItem("hakdolham:recentUses", JSON.stringify(state.recentUses));
+}
+
 function normalize(text) {
   return String(text).toLowerCase().replace(/\s+/g, "");
 }
@@ -221,11 +227,33 @@ function isMatched(tool) {
   return queryOk && categoryOk && favoriteOk;
 }
 
+function getToolWithUse(item) {
+  const tool = tools.find(target => target.id === item.id && target.url);
+  return tool ? { ...tool, count: item.count, lastOpenedAt: item.lastOpenedAt } : null;
+}
+
+function recordToolOpen(id) {
+  const now = Date.now();
+  const existing = state.recentUses.find(item => item.id === id);
+
+  if (existing) {
+    existing.count += 1;
+    existing.lastOpenedAt = now;
+  } else {
+    state.recentUses.unshift({ id, count: 1, lastOpenedAt: now });
+  }
+
+  state.recentUses.sort((a, b) => b.lastOpenedAt - a.lastOpenedAt);
+  state.recentUses = state.recentUses.slice(0, 20);
+  saveRecentUses();
+  renderQuickLaunch();
+}
+
 function renderCard(tool) {
   const isFavorite = state.favorites.has(tool.id);
   const tags = tool.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
   const link = tool.url
-    ? `<a class="open-link" href="${tool.url}" target="_blank" rel="noopener noreferrer">열기</a>`
+    ? `<a class="open-link" href="${tool.url}" target="_blank" rel="noopener noreferrer" data-open-tool="${tool.id}">열기</a>`
     : `<span class="disabled-link" title="${tool.name}은 현재 바로 열기 링크가 없습니다.">${disabledLabel(tool)}</span>`;
 
   return `
@@ -247,26 +275,62 @@ function renderCard(tool) {
   `;
 }
 
-function renderFavorites() {
-  const favoriteTools = tools.filter(tool => state.favorites.has(tool.id) && tool.url);
-  favoriteCount.textContent = state.favorites.size;
-
-  if (!favoriteTools.length) {
-    favoritePanel.hidden = true;
-    favoriteGrid.innerHTML = "";
-    return;
-  }
-
-  favoritePanel.hidden = false;
-  favoriteGrid.innerHTML = favoriteTools.map(tool => `
-    <a class="mini-card" href="${tool.url}" target="_blank" rel="noopener noreferrer">
+function renderMiniTool(tool, mode = "default") {
+  const countText = tool.count ? `${tool.count}번 꺼냄 · ` : "";
+  return `
+    <a class="mini-card ${mode}" href="${tool.url}" target="_blank" rel="noopener noreferrer" data-open-tool="${tool.id}">
       <span class="mini-icon">${tool.icon}</span>
       <span>
         <strong>${tool.name}</strong>
-        <small>${tool.category}</small>
+        <small>${countText}${tool.category}</small>
       </span>
     </a>
-  `).join("");
+  `;
+}
+
+function getQuickTools() {
+  if (state.quickTab === "favorite") {
+    return tools
+      .filter(tool => state.favorites.has(tool.id) && tool.url)
+      .map(tool => ({ ...tool }));
+  }
+
+  if (state.quickTab === "recent") {
+    return state.recentUses
+      .map(getToolWithUse)
+      .filter(Boolean)
+      .sort((a, b) => b.lastOpenedAt - a.lastOpenedAt)
+      .slice(0, 5);
+  }
+
+  return state.recentUses
+    .map(getToolWithUse)
+    .filter(Boolean)
+    .filter(tool => tool.count >= 2)
+    .sort((a, b) => {
+      if (b.count !== a.count) return b.count - a.count;
+      return b.lastOpenedAt - a.lastOpenedAt;
+    })
+    .slice(0, 5);
+}
+
+function renderQuickLaunch() {
+  if (!quickGrid || !quickEmpty) return;
+
+  document.querySelectorAll(".quick-tab").forEach(button => {
+    button.classList.toggle("active", button.dataset.quickTab === state.quickTab);
+  });
+
+  const emptyMessages = {
+    frequent: "🐥 같은 도구를 2번 이상 열면 여기에 모여요.",
+    recent: "🐥 도구를 열면 최근 사용 도구가 여기에 보여요.",
+    favorite: "🐥 카드의 별표를 누르면 여기에 고정돼요."
+  };
+
+  const quickTools = getQuickTools();
+  quickGrid.innerHTML = quickTools.map(tool => renderMiniTool(tool, `${state.quickTab}-mini-card`)).join("");
+  quickEmpty.textContent = emptyMessages[state.quickTab] || "🐥 표시할 도구가 없어요.";
+  quickEmpty.hidden = quickTools.length !== 0;
 }
 
 function render() {
@@ -275,9 +339,24 @@ function render() {
   emptyState.hidden = filtered.length !== 0;
 
   totalCount.textContent = tools.length;
+  favoriteCount.textContent = state.favorites.size;
   favoriteOnlyBtn.setAttribute("aria-pressed", String(state.favoriteOnly));
-  renderFavorites();
+
+  renderQuickLaunch();
 }
+
+document.addEventListener("click", event => {
+  const openTarget = event.target.closest("[data-open-tool]");
+  if (!openTarget) return;
+  recordToolOpen(openTarget.dataset.openTool);
+});
+
+document.querySelectorAll(".quick-tab").forEach(button => {
+  button.addEventListener("click", () => {
+    state.quickTab = button.dataset.quickTab;
+    renderQuickLaunch();
+  });
+});
 
 document.querySelectorAll(".category-chip").forEach(button => {
   button.addEventListener("click", () => {
@@ -319,7 +398,6 @@ grid.addEventListener("click", event => {
   saveFavorites();
   render();
 });
-
 
 const todoForm = document.querySelector("#todoForm");
 const todoInput = document.querySelector("#todoInput");
@@ -419,7 +497,8 @@ if (quickMemo) {
 }
 
 if (clearMemoBtn && quickMemo) {
-  clearMemoBtn.addEventListener("click", () => {
+  clearMemoBtn.addEventListener("click", event => {
+    event.preventDefault();
     quickMemo.value = "";
     localStorage.removeItem("hakdolham:memo");
     quickMemo.focus();
@@ -427,6 +506,4 @@ if (clearMemoBtn && quickMemo) {
 }
 
 renderTodos();
-
-
 render();
