@@ -2090,3 +2090,379 @@ textarea,
     font-size: 12px;
   }
 }
+
+
+/* v0.1.15 — Figma-style web preview: compact, useful jewel box */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(109, 93, 246, 0.13), transparent 28rem),
+    radial-gradient(circle at 100% 8%, rgba(116, 214, 185, 0.12), transparent 24rem),
+    #f7f8fc;
+}
+
+.app-shell {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 0 40px !important;
+}
+
+.hero {
+  width: 100%;
+  padding-top: 0 !important;
+}
+
+.topbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000;
+  width: 100% !important;
+  min-height: 64px;
+  margin: 0 0 16px 0 !important;
+  padding: 11px max(16px, calc((100vw - 1180px) / 2 + 16px)) !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(229, 231, 235, 1) !important;
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #8071ff 0%, #6d72f6 48%, #69d6c0 100%);
+}
+
+.hero-card,
+main,
+.footer {
+  width: min(1180px, calc(100% - 32px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-card {
+  min-height: 248px !important;
+  grid-template-columns: minmax(0, 1fr) 220px !important;
+  gap: 20px !important;
+  padding: clamp(22px, 3vw, 34px) !important;
+  border-radius: 28px !important;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.98), rgba(250,251,255,0.9)),
+    #ffffff !important;
+  box-shadow: 0 18px 44px rgba(31, 42, 68, 0.08) !important;
+}
+
+.hero-card h1,
+h1 {
+  font-size: clamp(31px, 4.3vw, 50px) !important;
+  line-height: 1.08 !important;
+}
+
+.hero-desc {
+  max-width: 620px !important;
+  margin: 14px 0 18px !important;
+  font-size: 15.5px !important;
+  line-height: 1.65 !important;
+}
+
+#searchInput {
+  min-height: 50px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 24px rgba(31, 42, 68, 0.06) !important;
+}
+
+.hero-meta {
+  margin-top: 13px !important;
+}
+
+.hero-meta span {
+  padding: 7px 10px !important;
+  font-size: 12.5px !important;
+}
+
+.treasure-box {
+  min-height: 186px !important;
+  transform: scale(0.72) !important;
+  transform-origin: center;
+  opacity: 0.95;
+}
+
+.recommend-section {
+  margin-top: 18px !important;
+  margin-bottom: 16px !important;
+}
+
+.recommend-head,
+.quick-head,
+.desk-head,
+.section-head {
+  margin-bottom: 11px !important;
+}
+
+.recommend-head h2,
+.quick-head h2,
+.desk-head h2,
+.section-head h2 {
+  font-size: clamp(22px, 2.5vw, 28px) !important;
+}
+
+.recommend-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 11px !important;
+}
+
+.recommend-card {
+  min-height: 108px !important;
+  padding: 15px !important;
+  border-radius: 19px !important;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(251,251,255,0.9)) !important;
+}
+
+.recommend-icon {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 14px !important;
+  font-size: 19px !important;
+}
+
+.recommend-card strong {
+  font-size: 15px !important;
+}
+
+.recommend-card small {
+  font-size: 12px !important;
+}
+
+.quick-panel,
+.desk-section {
+  padding: 18px;
+  border: 1px solid rgba(229, 231, 235, 0.95);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-soft);
+}
+
+.quick-panel {
+  margin-top: 16px !important;
+  margin-bottom: 16px;
+}
+
+.quick-tabs {
+  margin-bottom: 12px;
+}
+
+.quick-tab {
+  padding: 8px 12px !important;
+  font-size: 12.5px !important;
+}
+
+.desk-section {
+  margin-top: 16px !important;
+  margin-bottom: 18px !important;
+}
+
+.desk-grid {
+  gap: 12px !important;
+}
+
+.desk-card {
+  padding: 15px !important;
+  border-radius: 19px !important;
+}
+
+.desk-card-head {
+  margin-bottom: 10px !important;
+}
+
+.desk-card-head strong {
+  font-size: 15.5px !important;
+}
+
+.desk-card-head span {
+  font-size: 12px !important;
+}
+
+.desk-tip {
+  margin-bottom: 11px !important;
+  background: #fff9e8 !important;
+}
+
+.section-head {
+  margin-top: 24px !important;
+}
+
+.category-scroller {
+  gap: 7px !important;
+  padding-bottom: 14px !important;
+}
+
+.category-chip {
+  padding: 8px 12px !important;
+  font-size: 12.5px !important;
+  background: rgba(255,255,255,0.9) !important;
+}
+
+.tool-grid {
+  gap: 12px !important;
+}
+
+.tool-card {
+  min-height: 214px !important;
+  padding: 16px !important;
+  border-radius: 19px !important;
+}
+
+.tool-icon {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 14px !important;
+  font-size: 20px !important;
+}
+
+.card-top {
+  margin-bottom: 10px !important;
+}
+
+.tool-card h3 {
+  font-size: 17px !important;
+  margin-bottom: 6px !important;
+}
+
+.tool-card p {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+
+.tags {
+  margin: 11px 0 !important;
+}
+
+.tag {
+  padding: 5px 7px !important;
+  font-size: 11px !important;
+}
+
+.card-bottom {
+  padding-top: 10px !important;
+}
+
+.status {
+  padding: 5px 8px !important;
+  font-size: 11.5px !important;
+}
+
+.open-link,
+.disabled-link {
+  min-height: 34px !important;
+  border-radius: 12px !important;
+}
+
+.footer {
+  margin-top: 34px !important;
+}
+
+@media (max-width: 980px) {
+  .hero-card {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+
+  .treasure-box {
+    display: none !important;
+  }
+
+  .recommend-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    min-height: 58px;
+    padding: 10px 12px !important;
+  }
+
+  .hero-card,
+  main,
+  .footer {
+    width: min(100% - 22px, 1180px);
+  }
+
+  .hero-card {
+    padding: 22px 17px !important;
+  }
+
+  .hero-card h1,
+  h1 {
+    font-size: 32px !important;
+  }
+
+  .recommend-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .quick-panel,
+  .desk-section {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .tool-card {
+    min-height: 204px !important;
+  }
+}
+
+
+/* v0.1.16 — 상단 GitHub 딱지 + 카테고리 활성 딱지 버그 수정 */
+.github-top-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid rgba(109, 93, 246, 0.24);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f0edff, #ecfbf4);
+  color: #4b3fd1;
+  font-size: 13px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.github-top-badge:hover {
+  border-color: rgba(109, 93, 246, 0.42);
+  background: #f0edff;
+}
+
+.category-chip.active {
+  border-color: rgba(31, 42, 68, 0.88) !important;
+  background: #1f2a44 !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 20px rgba(31, 42, 68, 0.12) !important;
+}
+
+.category-chip:focus-visible,
+.github-top-badge:focus-visible,
+.ghost-button:focus-visible,
+.ghost-link:focus-visible {
+  outline: 3px solid rgba(109, 93, 246, 0.24);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .github-top-badge {
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
+}
