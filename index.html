@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>학돌함 v0.1.4 | 학교를 잘 돌아가게 하는 도구함</title>
+  <title>학돌함 v0.1.5 | 학교를 잘 돌아가게 하는 도구함</title>
   <meta name="description" content="학교를 잘 돌아가게 하는 행정 자동화 도구를 한곳에 모은 학돌함입니다." />
   <link rel="stylesheet" href="./style.css" />
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 </head>
 <body>
   <div class="app-shell">
@@ -25,19 +24,9 @@
         </div>
       </nav>
 
-      <div class="hakdolt-brief" role="note" aria-label="학돌T 브리핑">
-        <div class="brief-left">
-          <span class="hakdolt-brief-icon" aria-hidden="true">🐣</span>
-          <div class="brief-copy">
-            <div class="brief-title-row">
-              <strong>학돌T 브리핑</strong>
-              <span class="brief-badge">도구 안내</span>
-            </div>
-            <p>제출모아를 문서 자동화 칸에 새로 올려두었어요.</p>
-            <small>자주 쓰는 도구는 별표를 눌러 앞칸에 고정해두세요.</small>
-          </div>
-        </div>
-        <a class="brief-action" href="#toolGrid">둘러보기</a>
+      <div class="hakdolt-tip" role="note" aria-label="학돌T 안내">
+        <span class="hakdolt-tip-icon" aria-hidden="true">🐥</span>
+        <span class="hakdolt-tip-text">자주 쓰는 도구는 별표를 눌러 학돌함 앞칸에 고정해두세요.</span>
       </div>
 
       <section class="hero-card">
@@ -51,14 +40,14 @@
 
           <div class="search-wrap">
             <label for="searchInput" class="sr-only">도구 검색</label>
-            <input id="searchInput" type="search" placeholder="도구명, 업무명, 태그로 검색해보세요. 예: 공문, 카드, 학사일정" autocomplete="off" />
+            <input id="searchInput" type="search" placeholder="공문, 계약, 카드처럼 업무명으로 찾아보세요" autocomplete="off" />
             <button id="clearSearchBtn" type="button" aria-label="검색어 지우기">×</button>
           </div>
 
           <div class="hero-meta" aria-label="도구 요약">
             <span><b id="totalCount">0</b>개 도구</span>
             <span><b id="favoriteCount">0</b>개 즐겨찾기</span>
-            <span>v0.1.4</span>
+            <span>v0.1.5</span>
           </div>
         </div>
 
@@ -76,6 +65,51 @@
     </header>
 
     <main>
+
+      <section class="desk-section" aria-label="오늘의 책상">
+        <div class="desk-head">
+          <div>
+            <p class="eyebrow">Today Desk</p>
+            <h2>오늘의 책상</h2>
+          </div>
+          <p>할 일과 메모는 이 브라우저에만 저장돼요.</p>
+        </div>
+
+        <div class="desk-grid">
+          <article class="desk-card todo-card">
+            <div class="desk-card-head">
+              <div>
+                <strong>오늘 할 일</strong>
+                <span>작게 적고, 바로 처리하기</span>
+              </div>
+              <button class="text-button" id="clearDoneBtn" type="button">완료 삭제</button>
+            </div>
+
+            <form class="todo-form" id="todoForm">
+              <label for="todoInput" class="sr-only">오늘 할 일 추가</label>
+              <input id="todoInput" type="text" placeholder="오늘 챙길 일을 적어보세요." autocomplete="off" />
+              <button type="submit">추가</button>
+            </form>
+
+            <ul class="todo-list" id="todoList" aria-live="polite"></ul>
+            <p class="todo-empty" id="todoEmpty">아직 적어둔 할 일이 없어요.</p>
+          </article>
+
+          <article class="desk-card memo-card">
+            <div class="desk-card-head">
+              <div>
+                <strong>빠른 메모</strong>
+                <span>전화, 확인사항, 나중에 볼 링크</span>
+              </div>
+              <button class="text-button" id="clearMemoBtn" type="button">비우기</button>
+            </div>
+
+            <label for="quickMemo" class="sr-only">빠른 메모</label>
+            <textarea id="quickMemo" rows="6" placeholder="잠깐 적어둘 내용을 여기에 써두세요. 자동 저장됩니다."></textarea>
+          </article>
+        </div>
+      </section>
+
       <section class="section-head">
         <div>
           <p class="eyebrow">Tool Shelf</p>
@@ -97,7 +131,7 @@
       <section class="favorite-panel" id="favoritePanel" hidden>
         <div class="panel-title">
           <span>★</span>
-          <strong>즐겨찾는 도구</strong>
+          <strong>앞칸에 꺼내둔 도구</strong>
         </div>
         <div class="mini-grid" id="favoriteGrid"></div>
       </section>

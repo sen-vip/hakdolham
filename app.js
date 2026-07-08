@@ -55,18 +55,6 @@ const tools = [
     updated: "2026.07"
   },
   {
-    id: "jechul-moa",
-    name: "제출모아",
-    category: "문서 자동화",
-    description: "제출 자료와 스캔 파일을 한곳에 모아 확인하고 정리하는 자료 수합 도구입니다.",
-    tags: ["제출", "자료수합", "파일정리"],
-    status: "공개저장소",
-    icon: "📮",
-    url: "https://github.com/sen-vip/jechul-moa",
-    actionLabel: "GitHub",
-    updated: "2026.07"
-  },
-  {
     id: "pumshot",
     name: "품샷",
     category: "문서 자동화",
@@ -98,6 +86,17 @@ const tools = [
     icon: "📋",
     url: "https://sen-vip.github.io/annual-contract-board/",
     updated: "2026.06"
+  },
+  {
+    id: "contract-kockgum",
+    name: "계약 콕검",
+    category: "점검·확인",
+    description: "계약 구비서류를 기준 순서대로 빠르게 확인하는 계약 서류 점검 도구입니다.",
+    tags: ["계약", "구비서류", "점검"],
+    status: "운영중",
+    icon: "📑",
+    url: "https://sen-vip.github.io/contract-kockgum/",
+    updated: "2026.07"
   },
   {
     id: "insur-kockgum",
@@ -189,9 +188,8 @@ function statusClass(status) {
   if (status === "개선중") return "status-improving";
   if (status === "실험중") return "status-lab";
   if (status === "블로그 예정") return "status-blog";
-  if (status === "공개저장소") return "status-repo";
   if (status === "비공개") return "status-hidden";
-  return "status-private";
+  return "status-linkless";
 }
 
 function disabledLabel(tool) {
@@ -227,7 +225,7 @@ function renderCard(tool) {
   const isFavorite = state.favorites.has(tool.id);
   const tags = tool.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
   const link = tool.url
-    ? `<a class="open-link" href="${tool.url}" target="_blank" rel="noopener noreferrer">${tool.actionLabel || "열기"}</a>`
+    ? `<a class="open-link" href="${tool.url}" target="_blank" rel="noopener noreferrer">열기</a>`
     : `<span class="disabled-link" title="${tool.name}은 현재 바로 열기 링크가 없습니다.">${disabledLabel(tool)}</span>`;
 
   return `
@@ -250,8 +248,8 @@ function renderCard(tool) {
 }
 
 function renderFavorites() {
-  const favoriteTools = tools.filter(tool => state.favorites.has(tool.id));
-  favoriteCount.textContent = favoriteTools.length;
+  const favoriteTools = tools.filter(tool => state.favorites.has(tool.id) && tool.url);
+  favoriteCount.textContent = state.favorites.size;
 
   if (!favoriteTools.length) {
     favoritePanel.hidden = true;
@@ -261,7 +259,7 @@ function renderFavorites() {
 
   favoritePanel.hidden = false;
   favoriteGrid.innerHTML = favoriteTools.map(tool => `
-    <a class="mini-card" href="${tool.url || "#"}" ${tool.url ? 'target="_blank" rel="noopener noreferrer"' : ""}>
+    <a class="mini-card" href="${tool.url}" target="_blank" rel="noopener noreferrer">
       <span class="mini-icon">${tool.icon}</span>
       <span>
         <strong>${tool.name}</strong>
@@ -274,7 +272,7 @@ function renderFavorites() {
 function render() {
   const filtered = tools.filter(isMatched);
   grid.innerHTML = filtered.map(renderCard).join("");
-  emptyState.hidden = filtered.length > 0;
+  emptyState.hidden = filtered.length !== 0;
 
   totalCount.textContent = tools.length;
   favoriteOnlyBtn.setAttribute("aria-pressed", String(state.favoriteOnly));
@@ -321,5 +319,114 @@ grid.addEventListener("click", event => {
   saveFavorites();
   render();
 });
+
+
+const todoForm = document.querySelector("#todoForm");
+const todoInput = document.querySelector("#todoInput");
+const todoList = document.querySelector("#todoList");
+const todoEmpty = document.querySelector("#todoEmpty");
+const clearDoneBtn = document.querySelector("#clearDoneBtn");
+const quickMemo = document.querySelector("#quickMemo");
+const clearMemoBtn = document.querySelector("#clearMemoBtn");
+
+let todos = JSON.parse(localStorage.getItem("hakdolham:todos") || "[]");
+
+function saveTodos() {
+  localStorage.setItem("hakdolham:todos", JSON.stringify(todos));
+}
+
+function makeId() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return String(Date.now()) + String(Math.random()).slice(2);
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function renderTodos() {
+  if (!todoList || !todoEmpty) return;
+
+  todoList.innerHTML = todos.map(todo => `
+    <li class="todo-item ${todo.done ? "done" : ""}" data-todo-id="${todo.id}">
+      <label>
+        <input type="checkbox" ${todo.done ? "checked" : ""} />
+        <span>${escapeHtml(todo.text)}</span>
+      </label>
+      <button type="button" aria-label="할 일 삭제">×</button>
+    </li>
+  `).join("");
+
+  todoEmpty.hidden = todos.length !== 0;
+}
+
+if (todoForm) {
+  todoForm.addEventListener("submit", event => {
+    event.preventDefault();
+    const text = todoInput.value.trim();
+    if (!text) return;
+
+    todos.unshift({ id: makeId(), text, done: false });
+    todoInput.value = "";
+    saveTodos();
+    renderTodos();
+  });
+}
+
+if (todoList) {
+  todoList.addEventListener("change", event => {
+    const item = event.target.closest(".todo-item");
+    if (!item) return;
+
+    const target = todos.find(todo => todo.id === item.dataset.todoId);
+    if (!target) return;
+
+    target.done = event.target.checked;
+    saveTodos();
+    renderTodos();
+  });
+
+  todoList.addEventListener("click", event => {
+    if (event.target.tagName !== "BUTTON") return;
+
+    const item = event.target.closest(".todo-item");
+    if (!item) return;
+
+    todos = todos.filter(todo => todo.id !== item.dataset.todoId);
+    saveTodos();
+    renderTodos();
+  });
+}
+
+if (clearDoneBtn) {
+  clearDoneBtn.addEventListener("click", () => {
+    todos = todos.filter(todo => !todo.done);
+    saveTodos();
+    renderTodos();
+  });
+}
+
+if (quickMemo) {
+  quickMemo.value = localStorage.getItem("hakdolham:memo") || "";
+  quickMemo.addEventListener("input", event => {
+    localStorage.setItem("hakdolham:memo", event.target.value);
+  });
+}
+
+if (clearMemoBtn && quickMemo) {
+  clearMemoBtn.addEventListener("click", () => {
+    quickMemo.value = "";
+    localStorage.removeItem("hakdolham:memo");
+    quickMemo.focus();
+  });
+}
+
+renderTodos();
+
 
 render();
