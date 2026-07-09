@@ -2466,3 +2466,189 @@ h1 {
     font-size: 12px;
   }
 }
+
+
+/* v0.1.17 — 오늘의 작은 책상 레이아웃 재정리
+   히어로/보석함 디자인은 건드리지 않고, 책상 영역만 조정합니다. */
+.desk-section {
+  margin-top: 18px !important;
+  margin-bottom: 20px !important;
+  padding: 18px !important;
+  border: 1px solid rgba(229, 231, 235, 0.95);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: var(--shadow-soft);
+}
+
+.desk-head {
+  margin-bottom: 10px !important;
+}
+
+.desk-head h2 {
+  font-size: clamp(22px, 2.5vw, 28px) !important;
+}
+
+.desk-head h2::after {
+  content: " — 개인용";
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.desk-head p {
+  max-width: 420px;
+  font-size: 12.8px !important;
+}
+
+.desk-tip {
+  display: inline-flex !important;
+  width: auto !important;
+  margin: 0 0 11px !important;
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  font-size: 12.5px !important;
+}
+
+.desk-grid {
+  display: grid !important;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(340px, 1.35fr) minmax(210px, 0.62fr) !important;
+  gap: 12px !important;
+  align-items: stretch;
+}
+
+/* 기존 금액카드 order 강제값 무력화 */
+.amount-card {
+  order: initial !important;
+}
+
+/* 책상 카드 공통 compact */
+.desk-card {
+  min-width: 0;
+  min-height: 190px;
+  padding: 15px !important;
+  border-radius: 19px !important;
+}
+
+.desk-card-head {
+  margin-bottom: 10px !important;
+}
+
+.desk-card-head strong {
+  font-size: 15.5px !important;
+}
+
+.desk-card-head span {
+  font-size: 12px !important;
+}
+
+/* 할 일: 첫 번째 주인공 */
+.todo-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(251,251,255,0.92));
+}
+
+.todo-form input {
+  height: 39px !important;
+}
+
+.todo-form button {
+  height: 39px !important;
+}
+
+.todo-list {
+  max-height: 130px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.todo-item {
+  padding: 9px 10px !important;
+}
+
+/* 메모: 두 번째 주인공, 넓게 */
+.memo-card textarea {
+  min-height: 118px !important;
+  max-height: 190px;
+}
+
+/* 금액 변환: 보조 미니 유틸 */
+.amount-card {
+  min-height: 190px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.94), rgba(248,249,255,0.9)) !important;
+}
+
+.amount-card .desk-card-head {
+  align-items: center;
+}
+
+.amount-card .desk-card-head span {
+  display: none;
+}
+
+.amount-card .text-button {
+  padding: 6px 9px;
+  font-size: 11.5px;
+}
+
+.amount-converter {
+  gap: 7px !important;
+}
+
+.amount-converter input {
+  height: 38px !important;
+  border-radius: 13px !important;
+  font-size: 13px;
+}
+
+.amount-converter output {
+  min-height: 38px !important;
+  padding: 9px 10px !important;
+  border-radius: 13px !important;
+  font-size: 12px !important;
+  line-height: 1.4 !important;
+}
+
+/* 책상이 위로 올라왔으므로 추천 영역은 살짝 뒤로 */
+.recommend-section {
+  margin-top: 16px !important;
+}
+
+/* 모바일 순서 유지: 할 일 -> 메모 -> 금액 변환 */
+@media (max-width: 980px) {
+  .desk-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .desk-card {
+    min-height: 0;
+  }
+
+  .todo-list {
+    max-height: none;
+  }
+
+  .memo-card textarea {
+    min-height: 120px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .desk-section {
+    margin-top: 14px !important;
+    padding: 14px !important;
+    border-radius: 20px;
+  }
+
+  .desk-head h2::after {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+  }
+
+  .desk-tip {
+    width: 100% !important;
+    justify-content: flex-start;
+    border-radius: 15px !important;
+    font-size: 12.2px !important;
+  }
+}

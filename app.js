@@ -11,6 +11,17 @@ const tools = [
     updated: "2026.06"
   },
   {
+    id: "school-calendar",
+    name: "전국 학사일정 캘린더",
+    category: "일정·루틴",
+    description: "전국 학교 학사일정을 검색하고 월별로 확인하는 캘린더입니다.",
+    tags: ["학사일정", "학교검색", "캘린더"],
+    status: "운영중",
+    icon: "🗓️",
+    url: "https://sen-vip.github.io/school-calendar/",
+    updated: "2026.06"
+  },
+  {
     id: "monthly-tasks",
     name: "학돌 월별 필수업무",
     category: "일정·루틴",
@@ -95,7 +106,7 @@ const tools = [
     tags: ["보험", "체크리스트", "점검"],
     status: "운영중",
     icon: "🛡️",
-    url: "https://sen-vip.github.io/boheom-kockgum/",
+    url: "https://sen-vip.github.io/kockgum-insur/",
     updated: "2026.06"
   },
   {
@@ -117,7 +128,7 @@ const tools = [
     tags: ["계정", "계좌", "로컬저장"],
     status: "운영중",
     icon: "🔑",
-    url: "https://sen-vip.github.io/school-keybox/",
+    url: "https://sen-vip.github.io/hakdol-keybox/",
     updated: "2026.06"
   },
   {
