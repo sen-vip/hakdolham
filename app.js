@@ -1,169 +1,158 @@
 const tools = [
   {
-    id: "life-calendar",
-    name: "우리학교 생활달력",
-    category: "일정·루틴",
-    description: "학사일정, 급식, 시간표를 한곳에서 확인하는 학교 생활 캘린더입니다.",
-    tags: ["학사일정", "급식", "시간표"],
-    status: "운영중",
-    icon: "🏫",
-    url: "https://sen-vip.github.io/school-life-calendar/",
-    updated: "2026.06"
-  },
+      id: "keybox",
+      name: "우리학교 키박스",
+      category: "점검·확인",
+      description: "학교 공용 사이트, 계정, 계좌, 결제수단 정보를 로컬에서 정리하는 도구입니다.",
+      tags: ["계정", "계좌", "로컬저장"],
+      status: "운영중",
+      icon: "🔑",
+      url: "https://sen-vip.github.io/school-keybox/",
+      updated: "2026.06"
+    },
   {
-    id: "school-calendar",
-    name: "전국 학사일정 캘린더",
-    category: "일정·루틴",
-    description: "전국 학교 학사일정을 검색하고 월별로 확인하는 캘린더입니다.",
-    tags: ["학사일정", "학교검색", "캘린더"],
-    status: "운영중",
-    icon: "🗓️",
-    url: "https://sen-vip.github.io/school-calendar/",
-    updated: "2026.06"
-  },
+      id: "life-calendar",
+      name: "우리학교 생활달력",
+      category: "일정·루틴",
+      description: "학사일정, 급식, 시간표를 한곳에서 확인하는 학교 생활 캘린더입니다.",
+      tags: ["학사일정", "급식", "시간표"],
+      status: "운영중",
+      icon: "🏫",
+      url: "https://sen-vip.github.io/school-life-calendar/",
+      updated: "2026.06"
+    },
   {
-    id: "monthly-tasks",
-    name: "학돌 월별 필수업무",
-    category: "일정·루틴",
-    description: "월별 행정실 필수업무를 한눈에 확인하고 완료 체크할 수 있는 도구입니다.",
-    tags: ["월별업무", "루틴", "신규직원"],
-    status: "운영중",
-    icon: "📅",
-    url: "https://sen-vip.github.io/hakdol-monthly-tasks/",
-    updated: "2026.07"
-  },
+      id: "monthly-tasks",
+      name: "학돌 월별 필수업무",
+      category: "일정·루틴",
+      description: "월별 행정실 필수업무를 한눈에 확인하고 완료 체크할 수 있는 도구입니다.",
+      tags: ["월별업무", "루틴", "신규직원"],
+      status: "운영중",
+      icon: "📅",
+      url: "https://sen-vip.github.io/hakdol-monthly-tasks/",
+      updated: "2026.07"
+    },
   {
-    id: "routine",
-    name: "학돌 루틴",
-    category: "일정·루틴",
-    description: "행정실 반복 업무를 주기별로 정리하고 검색·필터링하는 루틴 보드입니다.",
-    tags: ["루틴", "반복업무", "체크"],
-    status: "개선중",
-    icon: "🧭",
-    url: "https://sen-vip.github.io/hakdol-routine/",
-    updated: "2026.07"
-  },
+      id: "routine",
+      name: "학돌 루틴",
+      category: "일정·루틴",
+      description: "행정실 반복 업무를 주기별로 정리하고 검색·필터링하는 루틴 보드입니다.",
+      tags: ["루틴", "반복업무", "체크"],
+      status: "개선중",
+      icon: "🧭",
+      url: "https://sen-vip.github.io/hakdol-routine/",
+      updated: "2026.07"
+    },
   {
-    id: "gongmun-fit",
-    name: "공문핏",
-    category: "문서 자동화",
-    description: "공문 관련·본문·붙임 번호 정리를 빠르게 도와주는 문서 정리 도구입니다.",
-    tags: ["공문", "붙임", "문서"],
-    status: "운영중",
-    icon: "📝",
-    url: "https://sen-vip.github.io/gongmun-fit/",
-    updated: "2026.07"
-  },
+      id: "gongmun-fit",
+      name: "공문핏",
+      category: "문서 자동화",
+      description: "공문 관련·본문·붙임 번호 정리를 빠르게 도와주는 문서 정리 도구입니다.",
+      tags: ["공문", "붙임", "문서"],
+      status: "운영중",
+      icon: "📝",
+      url: "https://sen-vip.github.io/gongmun-fit/",
+      updated: "2026.07"
+    },
   {
-    id: "pumshot",
-    name: "품샷",
-    category: "문서 자동화",
-    description: "견적서 기반 품의 본문과 에듀파인 업로드용 엑셀 작성을 돕는 도구입니다.",
-    tags: ["품의", "견적서", "엑셀"],
-    status: "비공개",
-    icon: "📦",
-    url: "",
-    updated: "링크 제외"
-  },
+      id: "pumshot",
+      name: "품샷",
+      category: "문서 자동화",
+      description: "견적서 기반 품의 본문과 에듀파인 업로드용 엑셀 작성을 돕는 도구입니다.",
+      tags: ["품의", "견적서", "엑셀"],
+      status: "비공개",
+      icon: "📦",
+      url: "",
+      updated: "링크 제외"
+    },
   {
-    id: "school-card-map",
-    name: "학교카드 사용처 지도",
-    category: "계약·지출·카드",
-    description: "학교카드 사용처를 지도에서 확인하고 업무추진비 사용 흐름을 보기 쉽게 정리합니다.",
-    tags: ["학교카드", "지도", "업무추진비"],
-    status: "개선중",
-    icon: "🗺️",
-    url: "https://school-card-map.vercel.app/",
-    updated: "2026.07"
-  },
+      id: "school-card-map",
+      name: "학교카드 사용처 지도",
+      category: "계약·지출·카드",
+      description: "학교카드 사용처를 지도에서 확인하고 업무추진비 사용 흐름을 보기 쉽게 정리합니다.",
+      tags: ["학교카드", "지도", "업무추진비"],
+      status: "개선중",
+      icon: "🗺️",
+      url: "https://school-card-map.vercel.app/",
+      updated: "2026.07"
+    },
   {
-    id: "annual-contract",
-    name: "연간계약보드",
-    category: "계약·지출·카드",
-    description: "연간 계약, 만료일, 금액, 업체 정보를 한눈에 관리하는 계약 보드입니다.",
-    tags: ["계약", "만료일", "자동이체"],
-    status: "운영중",
-    icon: "📋",
-    url: "https://sen-vip.github.io/annual-contract-board/",
-    updated: "2026.06"
-  },
+      id: "annual-contract",
+      name: "연간계약보드",
+      category: "계약·지출·카드",
+      description: "연간 계약, 만료일, 금액, 업체 정보를 한눈에 관리하는 계약 보드입니다.",
+      tags: ["계약", "만료일", "자동이체"],
+      status: "운영중",
+      icon: "📋",
+      url: "https://sen-vip.github.io/annual-contract-board/",
+      updated: "2026.06"
+    },
   {
-    id: "contract-kockgum",
-    name: "계약 콕검",
-    category: "점검·확인",
-    description: "계약 구비서류를 기준 순서대로 빠르게 확인하는 계약 서류 점검 도구입니다.",
-    tags: ["계약", "구비서류", "점검"],
-    status: "운영중",
-    icon: "📑",
-    url: "https://sen-vip.github.io/contract-kockgum/",
-    updated: "2026.07"
-  },
+      id: "contract-kockgum",
+      name: "계약 콕검",
+      category: "점검·확인",
+      description: "계약 구비서류를 기준 순서대로 빠르게 확인하는 계약 서류 점검 도구입니다.",
+      tags: ["계약", "구비서류", "점검"],
+      status: "운영중",
+      icon: "📑",
+      url: "https://sen-vip.github.io/contract-kockgum/",
+      updated: "2026.07"
+    },
   {
-    id: "insur-kockgum",
-    name: "보험 콕검",
-    category: "점검·확인",
-    description: "화재, 배상, 여행자보험 등 주요 보험 서류 확인을 돕는 체크 도구입니다.",
-    tags: ["보험", "체크리스트", "점검"],
-    status: "운영중",
-    icon: "🛡️",
-    url: "https://sen-vip.github.io/kockgum-insur/",
-    updated: "2026.06"
-  },
+      id: "insur-kockgum",
+      name: "보험 콕검",
+      category: "점검·확인",
+      description: "화재, 배상, 여행자보험 등 주요 보험 서류 확인을 돕는 체크 도구입니다.",
+      tags: ["보험", "체크리스트", "점검"],
+      status: "운영중",
+      icon: "🛡️",
+      url: "https://sen-vip.github.io/kockgum-insur/",
+      updated: "2026.06"
+    },
   {
-    id: "bus-kockgum",
-    name: "버스 콕검",
-    category: "점검·확인",
-    description: "현장체험학습·수련활동 버스 서류 확인을 단계별로 돕는 체크 도구입니다.",
-    tags: ["버스", "수련활동", "서류점검"],
-    status: "운영중",
-    icon: "🚌",
-    url: "https://sen-vip.github.io/bus-kockgum/",
-    updated: "2026.06"
-  },
+      id: "bus-kockgum",
+      name: "버스 콕검",
+      category: "점검·확인",
+      description: "현장체험학습·수련활동 버스 서류 확인을 단계별로 돕는 체크 도구입니다.",
+      tags: ["버스", "수련활동", "서류점검"],
+      status: "운영중",
+      icon: "🚌",
+      url: "https://sen-vip.github.io/bus-kockgum/",
+      updated: "2026.06"
+    },
   {
-    id: "keybox",
-    name: "우리학교 키박스",
-    category: "점검·확인",
-    description: "학교 공용 사이트, 계정, 계좌, 결제수단 정보를 로컬에서 정리하는 도구입니다.",
-    tags: ["계정", "계좌", "로컬저장"],
-    status: "운영중",
-    icon: "🔑",
-    url: "https://sen-vip.github.io/hakdol-keybox/",
-    updated: "2026.06"
-  },
+      id: "overtime",
+      name: "초근누구",
+      category: "초과근무·근태",
+      description: "초과근무 자료와 카드 사용 자료를 비교해 확인 후보를 정리하는 도구입니다.",
+      tags: ["초과근무", "카드", "확인"],
+      status: "개선중",
+      icon: "🌙",
+      url: "https://sen-vip.github.io/chogeun-nugu/",
+      updated: "2026.07"
+    },
   {
-    id: "overtime",
-    name: "초근누구",
-    category: "초과근무·근태",
-    description: "초과근무 자료와 카드 사용 자료를 비교해 확인 후보를 정리하는 도구입니다.",
-    tags: ["초과근무", "카드", "확인"],
-    status: "개선중",
-    icon: "🌙",
-    url: "https://sen-vip.github.io/chogeun-nugu/",
-    updated: "2026.07"
-  },
+      id: "secom",
+      name: "세콤매니저 변환기",
+      category: "초과근무·근태",
+      description: "세콤매니저 자료를 초과근무 확인에 쓰기 좋게 변환하는 전용 도구입니다.",
+      tags: ["세콤", "근태", "변환"],
+      status: "블로그 예정",
+      icon: "⏱️",
+      url: "",
+      updated: "링크 준비중"
+    },
   {
-    id: "secom",
-    name: "세콤매니저 변환기",
-    category: "초과근무·근태",
-    description: "세콤매니저 자료를 초과근무 확인에 쓰기 좋게 변환하는 전용 도구입니다.",
-    tags: ["세콤", "근태", "변환"],
-    status: "블로그 예정",
-    icon: "⏱️",
-    url: "",
-    updated: "링크 준비중"
-  },
-  {
-    id: "ansa",
-    name: "안 샀다",
-    category: "실험실",
-    description: "가짜 쇼핑과 배송 시뮬레이션으로 소비 충동을 잠깐 식히는 실험 도구입니다.",
-    tags: ["실험", "소비", "시뮬레이션"],
-    status: "실험중",
-    icon: "🛍️",
-    url: "https://sen-vip.github.io/ansa/",
-    updated: "2026.07"
-  }
+      id: "ansa",
+      name: "안 샀다",
+      category: "실험실",
+      description: "가짜 쇼핑과 배송 시뮬레이션으로 소비 충동을 잠깐 식히는 실험 도구입니다.",
+      tags: ["실험", "소비", "시뮬레이션"],
+      status: "실험중",
+      icon: "🛍️",
+      url: "https://sen-vip.github.io/ansa/",
+      updated: "2026.07"
+    }
 ];
 
 const state = {
@@ -597,6 +586,184 @@ if (clearMemoBtn && quickMemo) {
     quickMemo.focus();
   });
 }
+
+
+// v0.1.18 — 나의 책상 뽀모도로 타이머
+const pomodoroTime = document.querySelector("#pomodoroTime");
+const pomodoroLabel = document.querySelector("#pomodoroLabel");
+const pomodoroStatus = document.querySelector("#pomodoroStatus");
+const pomodoroToggleBtn = document.querySelector("#pomodoroToggleBtn");
+const pomodoroResetBtn = document.querySelector("#pomodoroResetBtn");
+const pomodoroModeBtn = document.querySelector("#pomodoroModeBtn");
+const pomodoroSoundBtn = document.querySelector("#pomodoroSoundBtn");
+const pomodoroSessions = document.querySelector("#pomodoroSessions");
+const pomodoroCard = document.querySelector("#pomodoroCard");
+
+const POMODORO_DURATIONS = { focus: 25 * 60, rest: 5 * 60 };
+const POMODORO_KEY = "hakdolham:pomodoro";
+
+function loadPomodoro() {
+  const fallback = {
+    mode: "focus",
+    remaining: POMODORO_DURATIONS.focus,
+    running: false,
+    endAt: null,
+    sessions: 0,
+    soundOn: false
+  };
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(POMODORO_KEY) || "null");
+    if (!saved || !["focus", "rest"].includes(saved.mode)) return fallback;
+    return { ...fallback, ...saved };
+  } catch {
+    return fallback;
+  }
+}
+
+let pomodoro = loadPomodoro();
+let pomodoroTimer = null;
+
+function savePomodoro() {
+  localStorage.setItem(POMODORO_KEY, JSON.stringify(pomodoro));
+}
+
+function pomodoroRemaining() {
+  if (!pomodoro.running || !pomodoro.endAt) return Math.max(0, pomodoro.remaining);
+  return Math.max(0, Math.ceil((pomodoro.endAt - Date.now()) / 1000));
+}
+
+function formatPomodoro(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+}
+
+function playPomodoroSound() {
+  if (!pomodoro.soundOn) return;
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    const context = new AudioContextClass();
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+    oscillator.frequency.value = 660;
+    gain.gain.setValueAtTime(0.0001, context.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.15, context.currentTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.5);
+    oscillator.start();
+    oscillator.stop(context.currentTime + 0.52);
+  } catch {
+    // Sound is optional; silently keep the timer working.
+  }
+}
+
+function completePomodoro() {
+  const completedMode = pomodoro.mode;
+  if (completedMode === "focus") pomodoro.sessions += 1;
+  pomodoro.mode = completedMode === "focus" ? "rest" : "focus";
+  pomodoro.remaining = POMODORO_DURATIONS[pomodoro.mode];
+  pomodoro.running = false;
+  pomodoro.endAt = null;
+  savePomodoro();
+  playPomodoroSound();
+  renderPomodoro(completedMode === "focus" ? "집중 1회 완료 · 5분 쉬어가요." : "휴식 완료 · 다시 집중할 준비가 됐어요.");
+}
+
+function renderPomodoro(statusMessage = "") {
+  if (!pomodoroTime) return;
+  const remaining = pomodoroRemaining();
+  if (pomodoro.running && remaining <= 0) {
+    completePomodoro();
+    return;
+  }
+
+  pomodoro.remaining = remaining;
+  const isFocus = pomodoro.mode === "focus";
+  pomodoroTime.textContent = formatPomodoro(remaining);
+  pomodoroLabel.textContent = isFocus ? "집중 시간" : "휴식 시간";
+  pomodoroToggleBtn.textContent = pomodoro.running ? "일시정지" : (isFocus ? "집중 시작" : "휴식 시작");
+  pomodoroModeBtn.textContent = isFocus ? "휴식 5분" : "집중 25분";
+  pomodoroSoundBtn.textContent = pomodoro.soundOn ? "🔔" : "🔕";
+  pomodoroSoundBtn.setAttribute("aria-label", pomodoro.soundOn ? "알림음 끄기" : "알림음 켜기");
+  pomodoroSessions.textContent = `오늘 ${pomodoro.sessions}회 집중`;
+  pomodoroStatus.textContent = statusMessage || (pomodoro.running ? "집중할 업무 하나만 남겨두세요." : "시작하면 다른 탭에서도 시간이 정확히 흘러요.");
+  pomodoroCard.classList.toggle("is-running", pomodoro.running);
+  pomodoroCard.classList.toggle("is-rest", !isFocus);
+  document.title = pomodoro.running
+    ? `${formatPomodoro(remaining)} · ${isFocus ? "집중 중" : "휴식 중"} | 학돌함`
+    : "학돌함 v0.1.18 | 학교를 잘 돌아가게 하는 도구함";
+}
+
+function stopPomodoroTicker() {
+  if (pomodoroTimer) window.clearInterval(pomodoroTimer);
+  pomodoroTimer = null;
+}
+
+function startPomodoroTicker() {
+  stopPomodoroTicker();
+  pomodoroTimer = window.setInterval(() => renderPomodoro(), 500);
+}
+
+if (pomodoroToggleBtn) {
+  pomodoroToggleBtn.addEventListener("click", () => {
+    if (pomodoro.running) {
+      pomodoro.remaining = pomodoroRemaining();
+      pomodoro.running = false;
+      pomodoro.endAt = null;
+      stopPomodoroTicker();
+    } else {
+      pomodoro.running = true;
+      pomodoro.endAt = Date.now() + pomodoro.remaining * 1000;
+      startPomodoroTicker();
+    }
+    savePomodoro();
+    renderPomodoro();
+  });
+}
+
+if (pomodoroResetBtn) {
+  pomodoroResetBtn.addEventListener("click", () => {
+    pomodoro.running = false;
+    pomodoro.endAt = null;
+    pomodoro.remaining = POMODORO_DURATIONS[pomodoro.mode];
+    stopPomodoroTicker();
+    savePomodoro();
+    renderPomodoro("타이머를 처음 시간으로 돌렸어요.");
+  });
+}
+
+if (pomodoroModeBtn) {
+  pomodoroModeBtn.addEventListener("click", () => {
+    pomodoro.mode = pomodoro.mode === "focus" ? "rest" : "focus";
+    pomodoro.running = false;
+    pomodoro.endAt = null;
+    pomodoro.remaining = POMODORO_DURATIONS[pomodoro.mode];
+    stopPomodoroTicker();
+    savePomodoro();
+    renderPomodoro();
+  });
+}
+
+if (pomodoroSoundBtn) {
+  pomodoroSoundBtn.addEventListener("click", () => {
+    pomodoro.soundOn = !pomodoro.soundOn;
+    savePomodoro();
+    renderPomodoro(pomodoro.soundOn ? "완료 알림음을 켰어요." : "완료 알림음을 껐어요.");
+  });
+}
+
+window.addEventListener("storage", event => {
+  if (event.key !== POMODORO_KEY) return;
+  pomodoro = loadPomodoro();
+  if (pomodoro.running) startPomodoroTicker();
+  renderPomodoro();
+});
+
+if (pomodoro.running) startPomodoroTicker();
+renderPomodoro();
 
 renderTodos();
 render();
