@@ -90,7 +90,7 @@ const tools = [
   {
       id: "contract-kockgum",
       name: "계약 콕검",
-      category: "점검·확인",
+      category: "계약·지출·카드",
       description: "계약 구비서류를 기준 순서대로 빠르게 확인하는 계약 서류 점검 도구입니다.",
       tags: ["계약", "구비서류", "점검"],
       status: "운영중",
@@ -123,7 +123,7 @@ const tools = [
   {
       id: "overtime",
       name: "초근누구",
-      category: "초과근무·근태",
+      category: "점검·확인",
       description: "초과근무 자료와 카드 사용 자료를 비교해 확인 후보를 정리하는 도구입니다.",
       tags: ["초과근무", "카드", "확인"],
       status: "개선중",
@@ -134,7 +134,7 @@ const tools = [
   {
       id: "secom",
       name: "세콤매니저 변환기",
-      category: "초과근무·근태",
+      category: "점검·확인",
       description: "세콤매니저 자료를 초과근무 확인에 쓰기 좋게 변환하는 전용 도구입니다.",
       tags: ["세콤", "근태", "변환"],
       status: "블로그 예정",
@@ -155,33 +155,39 @@ const tools = [
     }
 ];
 
+const CATEGORY_ORDER = [
+  "일정·루틴",
+  "문서 자동화",
+  "계약·지출·카드",
+  "점검·확인",
+  "실험실"
+];
+
+const CATEGORY_DESCRIPTIONS = {
+  "일정·루틴": "달력과 반복 업무",
+  "문서 자동화": "공문과 품의 작성",
+  "계약·지출·카드": "계약·지출·학교카드",
+  "점검·확인": "서류와 근태 확인",
+  "실험실": "가볍게 시험 중인 도구"
+};
+
 const state = {
   query: "",
-  category: "전체",
   favoriteOnly: false,
-  quickTab: "frequent",
-  favorites: new Set(JSON.parse(localStorage.getItem("hakdolham:favorites") || "[]")),
-  recentUses: JSON.parse(localStorage.getItem("hakdolham:recentUses") || "[]")
+  favorites: new Set(JSON.parse(localStorage.getItem("hakdolham:favorites") || "[]"))
 };
 
 const grid = document.querySelector("#toolGrid");
-const quickGrid = document.querySelector("#quickGrid");
-const quickEmpty = document.querySelector("#quickEmpty");
 const emptyState = document.querySelector("#emptyState");
 const searchInput = document.querySelector("#searchInput");
 const clearSearchBtn = document.querySelector("#clearSearchBtn");
+const searchResults = document.querySelector("#searchResults");
+const searchResultList = document.querySelector("#searchResultList");
+const searchResultCount = document.querySelector("#searchResultCount");
+const searchNoResult = document.querySelector("#searchNoResult");
 const favoriteOnlyBtn = document.querySelector("#favoriteOnlyBtn");
 const totalCount = document.querySelector("#totalCount");
 const favoriteCount = document.querySelector("#favoriteCount");
-
-function statusClass(status) {
-  if (status === "운영중") return "status-running";
-  if (status === "개선중") return "status-improving";
-  if (status === "실험중") return "status-lab";
-  if (status === "블로그 예정") return "status-blog";
-  if (status === "비공개") return "status-hidden";
-  return "status-linkless";
-}
 
 function disabledLabel(tool) {
   if (tool.status === "비공개") return "비공개";
@@ -193,201 +199,187 @@ function saveFavorites() {
   localStorage.setItem("hakdolham:favorites", JSON.stringify([...state.favorites]));
 }
 
-function saveRecentUses() {
-  localStorage.setItem("hakdolham:recentUses", JSON.stringify(state.recentUses));
-}
-
 function normalize(text) {
   return String(text).toLowerCase().replace(/\s+/g, "");
 }
 
-function isMatched(tool) {
+function matchesQuery(tool, query = state.query) {
+  if (!query) return true;
   const haystack = normalize([
     tool.name,
     tool.category,
     tool.description,
     tool.status,
-    tool.updated,
     ...tool.tags
   ].join(" "));
-  const queryOk = !state.query || haystack.includes(normalize(state.query));
-  const categoryOk = state.category === "전체" || tool.category === state.category;
-  const favoriteOk = !state.favoriteOnly || state.favorites.has(tool.id);
-  return queryOk && categoryOk && favoriteOk;
+  return haystack.includes(normalize(query));
 }
 
-function getToolWithUse(item) {
-  const tool = tools.find(target => target.id === item.id && target.url);
-  return tool ? { ...tool, count: item.count, lastOpenedAt: item.lastOpenedAt } : null;
+function highlightText(text, query) {
+  if (!query) return text;
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (!escaped) return text;
+  return String(text).replace(new RegExp(`(${escaped})`, "ig"), "<mark>$1</mark>");
 }
 
-function recordToolOpen(id) {
-  const now = Date.now();
-  const existing = state.recentUses.find(item => item.id === id);
-
-  if (existing) {
-    existing.count += 1;
-    existing.lastOpenedAt = now;
-  } else {
-    state.recentUses.unshift({ id, count: 1, lastOpenedAt: now });
-  }
-
-  state.recentUses.sort((a, b) => b.lastOpenedAt - a.lastOpenedAt);
-  state.recentUses = state.recentUses.slice(0, 20);
-  saveRecentUses();
-  renderQuickLaunch();
-}
-
-function renderCard(tool) {
+function renderToolCard(tool) {
   const isFavorite = state.favorites.has(tool.id);
-  const tags = tool.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
-  const link = tool.url
-    ? `<a class="open-link" href="${tool.url}" target="_blank" rel="noopener noreferrer" data-open-tool="${tool.id}">열기</a>`
-    : `<span class="disabled-link" title="${tool.name}은 현재 바로 열기 링크가 없습니다.">${disabledLabel(tool)}</span>`;
+  const action = tool.url
+    ? `<a class="tool-card-link" href="${tool.url}" target="_blank" rel="noopener noreferrer" data-open-tool="${tool.id}">
+        <span class="compact-tool-icon" aria-hidden="true">${tool.icon}</span>
+        <span class="compact-tool-copy">
+          <strong>${tool.name}</strong>
+          <small>${tool.description}</small>
+        </span>
+        <span class="compact-tool-arrow" aria-hidden="true">→</span>
+      </a>`
+    : `<div class="tool-card-link is-disabled" title="${tool.name}은 현재 바로 열기 링크가 없습니다.">
+        <span class="compact-tool-icon" aria-hidden="true">${tool.icon}</span>
+        <span class="compact-tool-copy">
+          <strong>${tool.name}</strong>
+          <small>${disabledLabel(tool)}</small>
+        </span>
+        <span class="compact-tool-status">${disabledLabel(tool)}</span>
+      </div>`;
 
   return `
-    <article class="tool-card" data-id="${tool.id}">
-      <div class="card-top">
-        <div class="tool-icon" aria-hidden="true">${tool.icon}</div>
-        <button class="favorite-btn ${isFavorite ? "active" : ""}" type="button" aria-label="${tool.name} 즐겨찾기" data-favorite="${tool.id}">
-          ${isFavorite ? "★" : "☆"}
-        </button>
-      </div>
-      <h3>${tool.name}</h3>
-      <p>${tool.description}</p>
-      <div class="tags">${tags}</div>
-      <div class="card-bottom">
-        <span class="status ${statusClass(tool.status)}">${tool.status} · ${tool.updated}</span>
-        ${link}
-      </div>
+    <article class="compact-tool-card ${tool.url ? "" : "is-unavailable"}" data-id="${tool.id}">
+      ${action}
+      <button class="favorite-btn compact-favorite ${isFavorite ? "active" : ""}" type="button" aria-label="${tool.name} 즐겨찾기" data-favorite="${tool.id}">
+        ${isFavorite ? "★" : "☆"}
+      </button>
     </article>
   `;
 }
 
-function renderMiniTool(tool, mode = "default") {
-  const countText = tool.count ? `${tool.count}번 꺼냄 · ` : "";
+function renderCategoryRow(category, categoryTools) {
   return `
-    <a class="mini-card ${mode}" href="${tool.url}" target="_blank" rel="noopener noreferrer" data-open-tool="${tool.id}">
-      <span class="mini-icon">${tool.icon}</span>
-      <span>
-        <strong>${tool.name}</strong>
-        <small>${countText}${tool.category}</small>
-      </span>
-    </a>
+    <section class="tool-category-row" aria-labelledby="category-${category}">
+      <div class="tool-category-label">
+        <h3 id="category-${category}">${category}</h3>
+        <p>${CATEGORY_DESCRIPTIONS[category] || ""}</p>
+        <span>${categoryTools.length}개</span>
+      </div>
+      <div class="category-tool-grid">
+        ${categoryTools.map(renderToolCard).join("")}
+      </div>
+    </section>
   `;
 }
 
-function getQuickTools() {
-  if (state.quickTab === "favorite") {
-    return tools
-      .filter(tool => state.favorites.has(tool.id) && tool.url)
-      .map(tool => ({ ...tool }));
-  }
+function renderToolBoard() {
+  const visibleTools = tools.filter(tool => tool.id !== "keybox")
+    .filter(tool => !state.favoriteOnly || state.favorites.has(tool.id));
 
-  if (state.quickTab === "recent") {
-    return state.recentUses
-      .map(getToolWithUse)
-      .filter(Boolean)
-      .sort((a, b) => b.lastOpenedAt - a.lastOpenedAt)
-      .slice(0, 5);
-  }
+  const rows = CATEGORY_ORDER.map(category => {
+    const categoryTools = visibleTools.filter(tool => tool.category === category);
+    return categoryTools.length ? renderCategoryRow(category, categoryTools) : "";
+  }).join("");
 
-  return state.recentUses
-    .map(getToolWithUse)
-    .filter(Boolean)
-    .filter(tool => tool.count >= 2)
-    .sort((a, b) => {
-      if (b.count !== a.count) return b.count - a.count;
-      return b.lastOpenedAt - a.lastOpenedAt;
-    })
-    .slice(0, 5);
+  grid.innerHTML = rows;
+  emptyState.hidden = visibleTools.length !== 0;
+  favoriteOnlyBtn.classList.toggle("active", state.favoriteOnly);
+  favoriteOnlyBtn.setAttribute("aria-pressed", String(state.favoriteOnly));
+  favoriteOnlyBtn.textContent = state.favoriteOnly ? "전체 도구 보기" : "즐겨찾기만";
 }
 
-function renderQuickLaunch() {
-  if (!quickGrid || !quickEmpty) return;
+function renderSearchResults() {
+  const query = state.query.trim();
+  searchResults.hidden = !query;
+  clearSearchBtn.classList.toggle("is-visible", Boolean(query));
+  if (!query) {
+    searchResultList.innerHTML = "";
+    searchNoResult.hidden = true;
+    return;
+  }
 
-  document.querySelectorAll(".quick-tab").forEach(button => {
-    button.classList.toggle("active", button.dataset.quickTab === state.quickTab);
-  });
-
-  const emptyMessages = {
-    frequent: "🐥 같은 도구를 2번 이상 열면 여기에 모여요.",
-    recent: "🐥 도구를 열면 최근 사용 도구가 여기에 보여요.",
-    favorite: "🐥 카드의 별표를 누르면 여기에 고정돼요."
+  const normalizedQuery = normalize(query);
+  const searchScore = tool => {
+    const name = normalize(tool.name);
+    const tags = tool.tags.map(normalize);
+    const description = normalize(tool.description);
+    const category = normalize(tool.category);
+    let score = 0;
+    if (name === normalizedQuery) score += 160;
+    else if (name.startsWith(normalizedQuery)) score += 130;
+    else if (name.includes(normalizedQuery)) score += 100;
+    if (tags.some(tag => tag === normalizedQuery)) score += 80;
+    else if (tags.some(tag => tag.includes(normalizedQuery))) score += 55;
+    if (description.includes(normalizedQuery)) score += 25;
+    if (category.includes(normalizedQuery)) score += 10;
+    return score;
   };
-
-  const quickTools = getQuickTools();
-  quickGrid.innerHTML = quickTools.map(tool => renderMiniTool(tool, `${state.quickTab}-mini-card`)).join("");
-  quickEmpty.textContent = emptyMessages[state.quickTab] || "🐥 표시할 도구가 없어요.";
-  quickEmpty.hidden = quickTools.length !== 0;
+  const matched = tools
+    .filter(tool => matchesQuery(tool, query))
+    .map((tool, index) => ({ tool, index, score: searchScore(tool) }))
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .slice(0, 6)
+    .map(item => item.tool);
+  searchResultCount.textContent = matched.length;
+  searchNoResult.hidden = matched.length !== 0;
+  searchResultList.innerHTML = matched.map((tool, index) => {
+    const title = highlightText(tool.name, query);
+    const description = highlightText(tool.description, query);
+    if (!tool.url) {
+      return `
+        <div class="search-result-item is-disabled" data-search-index="${index}">
+          <span class="search-result-icon">${tool.icon}</span>
+          <span class="search-result-copy"><strong>${title}</strong><small>${description}</small></span>
+          <span class="search-result-meta">${disabledLabel(tool)}</span>
+        </div>`;
+    }
+    return `
+      <a class="search-result-item" href="${tool.url}" target="_blank" rel="noopener noreferrer" data-open-tool="${tool.id}" data-search-index="${index}">
+        <span class="search-result-icon">${tool.icon}</span>
+        <span class="search-result-copy"><strong>${title}</strong><small>${description}</small></span>
+        <span class="search-result-meta">${tool.category}<b aria-hidden="true">→</b></span>
+      </a>`;
+  }).join("");
 }
 
 function render() {
-  const filtered = tools.filter(isMatched);
-  grid.innerHTML = filtered.map(renderCard).join("");
-  emptyState.hidden = filtered.length !== 0;
-
+  renderToolBoard();
+  renderSearchResults();
   totalCount.textContent = tools.length;
   favoriteCount.textContent = state.favorites.size;
-  favoriteOnlyBtn.setAttribute("aria-pressed", String(state.favoriteOnly));
-
-  renderQuickLaunch();
 }
 
 document.addEventListener("click", event => {
-  const openTarget = event.target.closest("[data-open-tool]");
-  if (!openTarget) return;
-  recordToolOpen(openTarget.dataset.openTool);
-});
-
-document.querySelectorAll(".quick-tab").forEach(button => {
-  button.addEventListener("click", () => {
-    state.quickTab = button.dataset.quickTab;
-    renderQuickLaunch();
-  });
-});
-
-document.querySelectorAll(".category-chip").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".category-chip").forEach(item => item.classList.remove("active"));
-    button.classList.add("active");
-    state.category = button.dataset.category;
+  const button = event.target.closest("[data-favorite]");
+  if (button) {
+    const id = button.dataset.favorite;
+    if (state.favorites.has(id)) state.favorites.delete(id);
+    else state.favorites.add(id);
+    saveFavorites();
     render();
-  });
+    return;
+  }
 });
 
 searchInput.addEventListener("input", event => {
   state.query = event.target.value;
-  render();
+  renderSearchResults();
+});
+
+searchInput.addEventListener("keydown", event => {
+  if (event.key !== "Enter" || !state.query.trim()) return;
+  const firstLink = searchResultList.querySelector("a.search-result-item");
+  if (!firstLink) return;
+  event.preventDefault();
+  firstLink.click();
 });
 
 clearSearchBtn.addEventListener("click", () => {
   state.query = "";
   searchInput.value = "";
   searchInput.focus();
-  render();
+  renderSearchResults();
 });
 
 favoriteOnlyBtn.addEventListener("click", () => {
   state.favoriteOnly = !state.favoriteOnly;
-  render();
+  renderToolBoard();
 });
-
-grid.addEventListener("click", event => {
-  const button = event.target.closest("[data-favorite]");
-  if (!button) return;
-
-  const id = button.dataset.favorite;
-  if (state.favorites.has(id)) {
-    state.favorites.delete(id);
-  } else {
-    state.favorites.add(id);
-  }
-
-  saveFavorites();
-  render();
-});
-
 
 const amountInput = document.querySelector("#amountInput");
 const amountOutput = document.querySelector("#amountOutput");
@@ -694,7 +686,7 @@ function renderPomodoro(statusMessage = "") {
   pomodoroCard.classList.toggle("is-rest", !isFocus);
   document.title = pomodoro.running
     ? `${formatPomodoro(remaining)} · ${isFocus ? "집중 중" : "휴식 중"} | 학돌함`
-    : "학돌함 v0.1.18 | 학교를 잘 돌아가게 하는 도구함";
+    : "학돌함 v0.1.19 | 학교를 잘 돌아가게 하는 도구함";
 }
 
 function stopPomodoroTicker() {

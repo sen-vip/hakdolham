@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="학교를 잘 돌아가게 하는 행정 자동화 도구를 한곳에 모은 학돌함입니다." />
   <meta name="theme-color" content="#f7f8fc" />
-  <title>학돌함 v0.1.18 | 학교를 잘 돌아가게 하는 도구함</title>
+  <title>학돌함 v0.1.19 | 학교를 잘 돌아가게 하는 도구함</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./style.css" />
 </head>
@@ -19,25 +19,35 @@
         </a>
         <div class="top-actions">
           <button class="ghost-button" id="favoriteOnlyBtn" type="button" aria-pressed="false">즐겨찾기만</button>
-          <a class="ghost-link" href="#toolGrid">전체 도구</a>
+          <a class="ghost-link" href="#toolBoard">업무별 도구</a>
         </div>
       </nav>
 
       <section class="hero-card">
         <div class="hero-copy">
           <p class="eyebrow">학돌랩 업무 데스크</p>
-          <h1>오늘 필요한 도구를<br />빠르게 꺼내 쓰세요.</h1>
-          <p class="hero-desc">공문, 일정, 계약, 카드, 점검 업무를 검색하고 바로 시작할 수 있어요.</p>
+          <h1>필요한 도구를<br />바로 찾아 꺼내세요.</h1>
+          <p class="hero-desc">업무명으로 검색하거나, 아래 업무분류표에서 한눈에 찾을 수 있어요.</p>
           <div class="search-wrap">
             <label for="searchInput" class="sr-only">도구 검색</label>
             <span class="search-icon" aria-hidden="true">⌕</span>
             <input id="searchInput" type="search" placeholder="공문, 계약, 카드처럼 업무명으로 검색하세요" autocomplete="off" />
             <button id="clearSearchBtn" type="button" aria-label="검색어 지우기">×</button>
           </div>
+
+          <section class="search-results" id="searchResults" aria-label="검색 결과" hidden>
+            <div class="search-results-head">
+              <strong>검색 결과 <span id="searchResultCount">0</span>개</strong>
+              <span>Enter를 누르면 첫 번째 도구가 열려요.</span>
+            </div>
+            <div class="search-result-list" id="searchResultList" aria-live="polite"></div>
+            <p class="search-no-result" id="searchNoResult" hidden>찾는 도구가 없어요. 다른 업무명으로 검색해보세요.</p>
+          </section>
+
           <div class="hero-meta" aria-label="도구 요약">
             <span><b id="totalCount">0</b>개 도구</span>
             <span><b id="favoriteCount">0</b>개 즐겨찾기</span>
-            <span>v0.1.18</span>
+            <span>v0.1.19</span>
           </div>
         </div>
         <div class="hero-symbol" aria-hidden="true">
@@ -51,12 +61,25 @@
         <div class="keybox-copy">
           <span class="keybox-icon" aria-hidden="true">🔑</span>
           <div>
-            <div class="feature-label">가장 자주 쓰는 핵심 도구</div>
+            <div class="feature-label">맨 위에 고정한 핵심 도구</div>
             <h2>우리학교 키박스</h2>
-            <p>학교 공용 사이트·계정·계좌·결제수단을 열고, 나의 책상과 함께 사용하세요.</p>
+            <p>학교 공용 사이트·계정·계좌·결제수단을 빠르게 열어보세요.</p>
           </div>
         </div>
         <a class="keybox-open" href="https://sen-vip.github.io/school-keybox/" target="_blank" rel="noopener noreferrer" data-open-tool="keybox">키박스 열기 <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="tool-directory" id="toolBoard" aria-label="업무별 도구">
+        <div class="section-head tools-head">
+          <div><p class="eyebrow">TOOLS BY WORK</p><h2>업무별 도구</h2></div>
+          <p class="section-desc">탭을 넘기지 않고, 업무 분류별로 도구를 한 번에 훑어보세요.</p>
+        </div>
+        <div class="tool-board" id="toolGrid" aria-live="polite"></div>
+        <section class="empty-state" id="emptyState" hidden>
+          <div class="empty-state-icon">☆</div>
+          <strong>표시할 즐겨찾기가 없어요.</strong>
+          <p>도구 카드의 별표를 누른 뒤 다시 확인해보세요.</p>
+        </section>
       </section>
 
       <section class="desk-section" aria-label="나의 책상">
@@ -121,38 +144,9 @@
           </article>
         </div>
       </section>
-
-      <section class="recommend-section" aria-label="자주 쓰는 도구">
-        <div class="section-head compact-head">
-          <div><p class="eyebrow">QUICK TOOLS</p><h2>자주 쓰는 도구</h2></div>
-          <p class="section-desc">키박스와 함께 자주 여는 업무 도구를 모았어요.</p>
-        </div>
-        <div class="recommend-grid">
-          <a class="recommend-card" href="https://sen-vip.github.io/school-life-calendar/" target="_blank" rel="noopener noreferrer" data-open-tool="life-calendar"><span class="recommend-icon">🏫</span><span><strong>우리학교 생활달력</strong><small>학사일정·급식·시간표</small></span><b>→</b></a>
-          <a class="recommend-card" href="https://sen-vip.github.io/gongmun-fit/" target="_blank" rel="noopener noreferrer" data-open-tool="gongmun-fit"><span class="recommend-icon">📝</span><span><strong>공문핏</strong><small>공문·붙임 번호 정리</small></span><b>→</b></a>
-          <a class="recommend-card" href="https://sen-vip.github.io/contract-kockgum/" target="_blank" rel="noopener noreferrer" data-open-tool="contract-kockgum"><span class="recommend-icon">📑</span><span><strong>계약 콕검</strong><small>계약 구비서류 점검</small></span><b>→</b></a>
-          <a class="recommend-card" href="https://school-card-map.vercel.app/" target="_blank" rel="noopener noreferrer" data-open-tool="school-card-map"><span class="recommend-icon">🗺️</span><span><strong>학교카드 사용처 지도</strong><small>카드 사용처 지도 확인</small></span><b>→</b></a>
-        </div>
-      </section>
-
-      <section class="section-head tools-head">
-        <div><p class="eyebrow">ALL TOOLS</p><h2>전체 도구</h2></div>
-        <p class="section-desc">우리학교 키박스를 첫 번째로 두고, 업무별로 빠르게 찾을 수 있게 정리했어요.</p>
-      </section>
-      <section class="category-scroller" aria-label="도구 분류">
-        <button class="category-chip active" type="button" data-category="전체">전체</button>
-        <button class="category-chip" type="button" data-category="일정·루틴">일정·루틴</button>
-        <button class="category-chip" type="button" data-category="문서 자동화">문서 자동화</button>
-        <button class="category-chip" type="button" data-category="계약·지출·카드">계약·지출·카드</button>
-        <button class="category-chip" type="button" data-category="점검·확인">점검·확인</button>
-        <button class="category-chip" type="button" data-category="초과근무·근태">초과근무·근태</button>
-        <button class="category-chip" type="button" data-category="실험실">실험실</button>
-      </section>
-      <section class="tool-grid" id="toolGrid" aria-live="polite"></section>
-      <section class="empty-state" id="emptyState" hidden><div class="empty-state-icon">🔎</div><strong>찾는 도구가 없어요.</strong><p>다른 업무명으로 다시 찾아보세요.</p></section>
     </main>
 
-    <footer class="footer"><strong>학돌함</strong><span>학교를 잘 돌아가게 하는 행정 자동화 도구함 · v0.1.18</span></footer>
+    <footer class="footer"><strong>학돌함</strong><span>학교를 잘 돌아가게 하는 행정 자동화 도구함 · v0.1.19</span></footer>
   </div>
   <script src="./app.js"></script>
 </body>
