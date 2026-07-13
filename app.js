@@ -1,16 +1,18 @@
 const tools = [
+
+  
   {
       id: "keybox",
       name: "우리학교 키박스",
-      category: "점검·확인",
-      description: "학교 공용 사이트, 계정, 계좌, 결제수단 정보를 로컬에서 정리하는 도구입니다.",
-      tags: ["계정", "계좌", "로컬저장"],
+      category: "핵심 도구",
+      description: "학교 공용 사이트·계정·계좌·결제수단을 빠르게 여는 핵심 도구입니다.",
+      tags: ["공용계정", "계좌", "결제수단"],
       status: "운영중",
       icon: "🔑",
       url: "https://sen-vip.github.io/school-keybox/",
-      updated: "2026.06"
+      updated: "매일 사용"
     },
-  {
+{
       id: "life-calendar",
       name: "우리학교 생활달력",
       category: "일정·루틴",
@@ -189,6 +191,7 @@ const tools = [
 ];
 
 const CATEGORY_ORDER = [
+  "핵심 도구",
   "일정·루틴",
   "문서 자동화",
   "계약·지출·카드",
@@ -197,7 +200,8 @@ const CATEGORY_ORDER = [
 ];
 
 const CATEGORY_DESCRIPTIONS = {
-  "일정·루틴": "달력과 반복 업무",
+  "핵심 도구": "매일 여는 핵심 도구",
+"일정·루틴": "달력과 반복 업무",
   "문서 자동화": "공문과 품의 작성",
   "계약·지출·카드": "계약·지출·학교카드",
   "점검·확인": "서류와 근태 확인",
@@ -301,7 +305,7 @@ function renderCategoryRow(category, categoryTools) {
 }
 
 function renderToolBoard() {
-  const visibleTools = tools.filter(tool => tool.id !== "keybox")
+  const visibleTools = tools
     .filter(tool => !state.favoriteOnly || state.favorites.has(tool.id));
 
   const rows = CATEGORY_ORDER.map(category => {

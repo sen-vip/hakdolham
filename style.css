@@ -440,3 +440,91 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .tool-card-link { grid-template-columns: 40px minmax(0, 1fr) 16px; padding-block: 10px; }
   .compact-tool-copy small { -webkit-line-clamp: 1; }
 }
+
+
+/* v0.1.21 — 키박스는 상단 배너가 아니라 업무별 도구 첫 줄에 배치 */
+.keybox-banner,
+.pinned-keybox,
+.fixed-keybox,
+.core-tool-banner {
+  display: none !important;
+}
+
+.category-chip[data-category="핵심 도구"] {
+  border-color: rgba(109, 93, 246, 0.24);
+  background: linear-gradient(135deg, #f0edff, #ecfbf4);
+  color: #4b3fd1;
+}
+
+.work-category-card:first-child,
+.work-group:first-child .work-label,
+.work-row:first-child .work-label {
+  border-color: rgba(109, 93, 246, 0.18);
+  background: linear-gradient(135deg, #f0edff, #ecfbf4);
+}
+
+.tool-card[data-id="keybox"],
+.work-tool-card[data-id="keybox"] {
+  border-color: rgba(109, 93, 246, 0.26) !important;
+  background:
+    linear-gradient(135deg, rgba(240, 237, 255, 0.56), rgba(236, 251, 244, 0.46)),
+    #ffffff !important;
+  box-shadow: 0 16px 34px rgba(109, 93, 246, 0.10) !important;
+}
+
+.tool-card[data-id="keybox"] .tool-icon,
+.work-tool-card[data-id="keybox"] .tool-icon,
+.work-tool-card[data-id="keybox"] .work-tool-icon {
+  background: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(109, 93, 246, 0.13);
+}
+
+.tool-card[data-id="keybox"] h3::after,
+.work-tool-card[data-id="keybox"] h3::after,
+.work-tool-card[data-id="keybox"] strong::after {
+  content: "  핵심";
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #1f2a44;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 850;
+  vertical-align: middle;
+}
+
+
+/* v0.1.22 — 키박스 업무별 도구 첫 줄 복구 */
+.tool-category-row:first-child .tool-category-label {
+  border-color: rgba(109, 93, 246, 0.24);
+  background: linear-gradient(135deg, #f0edff, #ecfbf4);
+}
+
+.compact-tool-card[data-id="keybox"] {
+  border-color: rgba(109, 93, 246, 0.30) !important;
+  background:
+    linear-gradient(135deg, rgba(240, 237, 255, 0.68), rgba(236, 251, 244, 0.52)),
+    #ffffff !important;
+  box-shadow: 0 16px 34px rgba(109, 93, 246, 0.10) !important;
+}
+
+.compact-tool-card[data-id="keybox"] .compact-tool-icon {
+  background: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(109, 93, 246, 0.14);
+}
+
+.compact-tool-card[data-id="keybox"] .compact-tool-copy strong::after {
+  content: "핵심";
+  display: inline-flex;
+  align-items: center;
+  margin-left: 7px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: #1f2a44;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 850;
+  vertical-align: middle;
+}
