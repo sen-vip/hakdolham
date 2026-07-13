@@ -66,6 +66,17 @@ const tools = [
       updated: "링크 제외"
     },
   {
+      id: "jechul-moa",
+      name: "제출모아",
+      category: "문서 자동화",
+      description: "제출 파일을 모으고, 미제출자를 확인하고, 파일 정리를 돕는 도구입니다.",
+      tags: ["제출", "파일정리", "미제출확인"],
+      status: "운영중",
+      icon: "📥",
+      url: "https://sen-vip.github.io/jechul-moa/",
+      updated: "2026.07"
+    },
+  {
       id: "school-card-map",
       name: "학교카드 사용처 지도",
       category: "계약·지출·카드",
@@ -74,6 +85,17 @@ const tools = [
       status: "개선중",
       icon: "🗺️",
       url: "https://school-card-map.vercel.app/",
+      updated: "2026.07"
+    },
+  {
+      id: "edu-card-map",
+      name: "교육청 법카맵",
+      category: "계약·지출·카드",
+      description: "교육청 업무추진비 공개자료를 지도와 표로 확인하는 도구입니다.",
+      tags: ["교육청", "법카", "업무추진비"],
+      status: "운영중",
+      icon: "🏛️",
+      url: "https://sen-vip.github.io/edu-card-map/",
       updated: "2026.07"
     },
   {
@@ -119,6 +141,17 @@ const tools = [
       icon: "🚌",
       url: "https://sen-vip.github.io/bus-kockgum/",
       updated: "2026.06"
+    },
+  {
+      id: "inside-travel-kockgum",
+      name: "관내여비 콕검",
+      category: "점검·확인",
+      description: "관내 출장 거리와 여비 확인 포인트를 빠르게 점검하는 도구입니다.",
+      tags: ["관내여비", "출장", "거리확인"],
+      status: "운영중",
+      icon: "📍",
+      url: "https://inside-travel-kockgum.vercel.app/",
+      updated: "2026.07"
     },
   {
       id: "overtime",

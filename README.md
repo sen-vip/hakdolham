@@ -20,3 +20,14 @@
 ## 배포
 
 `index.html`, `style.css`, `app.js`, `favicon.svg`를 저장소 루트에 업로드하면 GitHub Pages에서 동작합니다.
+
+
+## v0.1.20
+
+- 제출모아 추가
+  - https://sen-vip.github.io/jechul-moa/
+- 교육청 법카맵 추가
+  - https://sen-vip.github.io/edu-card-map/
+- 관내여비 콕검 추가
+  - https://inside-travel-kockgum.vercel.app/
+- 버전 표기를 v0.1.20으로 변경
