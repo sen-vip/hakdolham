@@ -159,8 +159,18 @@ main { display: block; }
 .empty-state-icon { margin-bottom: 9px; font-size: 26px; }
 .empty-state strong { font-size: 16px; }
 .empty-state p { margin: 7px 0 0; color: var(--muted); font-size: 13px; }
-.footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 28px; padding: 20px 4px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+.footer { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 28px; padding: 20px 4px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 .footer strong { color: var(--ink); }
+.footer-brand,
+.footer-meta { display: flex; align-items: center; gap: 7px; }
+.footer-brand span { color: var(--muted); }
+.footer-meta { flex: 0 0 auto; }
+.footer-meta > span,
+.footer-github { white-space: nowrap; }
+.footer-meta strong { font-weight: 850; }
+.footer-divider { color: #c3c7d1; }
+.footer-github { display: inline-flex; align-items: center; gap: 3px; color: var(--muted); font-weight: 800; transition: color .16s ease; }
+.footer-github:hover { color: var(--ink); }
 .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
 
 button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid rgba(101,88,232,.2); outline-offset: 2px; }
@@ -204,8 +214,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .recommend-grid, .tool-grid { grid-template-columns: 1fr; }
   .recommend-card { min-height: 74px; }
   .tool-card { min-height: 174px; }
-  .footer { display: block; line-height: 1.7; }
-  .footer span { display: block; }
+  .footer { flex-direction: column; align-items: center; gap: 8px; text-align: center; line-height: 1.5; }
+  .footer-brand { flex-direction: column; gap: 2px; }
+  .footer-meta { justify-content: center; }
 }
 
 /* v0.1.19 — 검색 즉시 결과 + 업무분류표형 3열 도구판 */

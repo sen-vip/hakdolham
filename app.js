@@ -631,19 +631,33 @@ const pomodoroCard = document.querySelector("#pomodoroCard");
 const POMODORO_DURATIONS = { focus: 25 * 60, rest: 5 * 60 };
 const POMODORO_KEY = "hakdolham:pomodoro";
 
-function loadPomodoro() {
-  const fallback = {
+function getLocalDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function createPomodoroState(soundOn = false) {
+  return {
     mode: "focus",
     remaining: POMODORO_DURATIONS.focus,
     running: false,
     endAt: null,
     sessions: 0,
-    soundOn: false
+    soundOn,
+    dateKey: getLocalDateKey()
   };
+}
 
+function loadPomodoro() {
+  const fallback = createPomodoroState();
   try {
     const saved = JSON.parse(localStorage.getItem(POMODORO_KEY) || "null");
     if (!saved || !["focus", "rest"].includes(saved.mode)) return fallback;
+    if (saved.dateKey !== getLocalDateKey()) {
+      return createPomodoroState(Boolean(saved.soundOn));
+    }
     return { ...fallback, ...saved };
   } catch {
     return fallback;
@@ -652,9 +666,36 @@ function loadPomodoro() {
 
 let pomodoro = loadPomodoro();
 let pomodoroTimer = null;
+let pomodoroDailyResetTimer = null;
 
 function savePomodoro() {
   localStorage.setItem(POMODORO_KEY, JSON.stringify(pomodoro));
+}
+
+function resetPomodoroForNewDay() {
+  if (pomodoro.dateKey === getLocalDateKey()) return false;
+  const soundOn = pomodoro.soundOn;
+  pomodoro = createPomodoroState(soundOn);
+  stopPomodoroTicker();
+  savePomodoro();
+  return true;
+}
+
+function schedulePomodoroDailyReset() {
+  if (pomodoroDailyResetTimer) window.clearTimeout(pomodoroDailyResetTimer);
+  const now = new Date();
+  const nextMidnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+    0, 0, 0, 100
+  );
+
+  pomodoroDailyResetTimer = window.setTimeout(() => {
+    resetPomodoroForNewDay();
+    renderPomodoro("새 하루가 시작되어 타이머를 초기화했어요.");
+    schedulePomodoroDailyReset();
+  }, nextMidnight.getTime() - now.getTime());
 }
 
 function pomodoroRemaining() {
@@ -703,6 +744,8 @@ function completePomodoro() {
 
 function renderPomodoro(statusMessage = "") {
   if (!pomodoroTime) return;
+  const dayChanged = resetPomodoroForNewDay();
+  if (dayChanged) statusMessage = "새 하루가 시작되어 타이머를 초기화했어요.";
   const remaining = pomodoroRemaining();
   if (pomodoro.running && remaining <= 0) {
     completePomodoro();
@@ -723,7 +766,7 @@ function renderPomodoro(statusMessage = "") {
   pomodoroCard.classList.toggle("is-rest", !isFocus);
   document.title = pomodoro.running
     ? `${formatPomodoro(remaining)} · ${isFocus ? "집중 중" : "휴식 중"} | 학돌함`
-    : "학돌함 v0.1.19 | 학교를 잘 돌아가게 하는 도구함";
+    : "학돌함 v0.1.24 | 학교를 잘 돌아가게 하는 도구함";
 }
 
 function stopPomodoroTicker() {
@@ -791,7 +834,20 @@ window.addEventListener("storage", event => {
   renderPomodoro();
 });
 
+window.addEventListener("focus", () => {
+  renderPomodoro();
+  schedulePomodoroDailyReset();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState !== "visible") return;
+  renderPomodoro();
+  schedulePomodoroDailyReset();
+});
+
 if (pomodoro.running) startPomodoroTicker();
+savePomodoro();
+schedulePomodoroDailyReset();
 renderPomodoro();
 
 renderTodos();

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="학교를 잘 돌아가게 하는 행정 자동화 도구를 한곳에 모은 학돌함입니다." />
   <meta name="theme-color" content="#f7f8fc" />
-  <title>학돌함 v0.1.22 | 학교를 잘 돌아가게 하는 도구함</title>
+  <title>학돌함 v0.1.24 | 학교를 잘 돌아가게 하는 도구함</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./style.css" />
 </head>
@@ -47,7 +47,7 @@
           <div class="hero-meta" aria-label="도구 요약">
             <span><b id="totalCount">0</b>개 도구</span>
             <span><b id="favoriteCount">0</b>개 즐겨찾기</span>
-            <span>v0.1.22</span>
+            <span>v0.1.24</span>
           </div>
         </div>
         <div class="hero-symbol" aria-hidden="true">
@@ -80,20 +80,6 @@
         </div>
 
         <div class="desk-grid">
-          <article class="desk-card todo-card">
-            <div class="desk-card-head">
-              <div><strong>오늘 챙길 일</strong><span>짧게 적고 하나씩 완료해요</span></div>
-              <button class="text-button" id="clearDoneBtn" type="button">완료 삭제</button>
-            </div>
-            <form class="todo-form" id="todoForm">
-              <label for="todoInput" class="sr-only">오늘 챙길 일 추가</label>
-              <input id="todoInput" type="text" placeholder="오늘 챙길 일을 적어보세요" autocomplete="off" />
-              <button type="submit">추가</button>
-            </form>
-            <ul class="todo-list" id="todoList" aria-live="polite"></ul>
-            <p class="todo-empty" id="todoEmpty">아직 적어둔 할 일이 없어요.</p>
-          </article>
-
           <article class="desk-card pomodoro-card" id="pomodoroCard">
             <div class="desk-card-head">
               <div><strong id="pomodoroLabel">집중 시간</strong><span id="pomodoroSessions">오늘 0회 집중</span></div>
@@ -110,13 +96,18 @@
             </div>
           </article>
 
-          <article class="desk-card memo-card">
+          <article class="desk-card todo-card">
             <div class="desk-card-head">
-              <div><strong>빠른 메모</strong><span>전화·확인사항·나중에 볼 링크</span></div>
-              <button class="text-button" id="clearMemoBtn" type="button">비우기</button>
+              <div><strong>오늘 챙길 일</strong><span>짧게 적고 하나씩 완료해요</span></div>
+              <button class="text-button" id="clearDoneBtn" type="button">완료 삭제</button>
             </div>
-            <label for="quickMemo" class="sr-only">빠른 메모</label>
-            <textarea id="quickMemo" rows="5" placeholder="잠깐 적어둘 내용을 써두세요. 자동 저장됩니다."></textarea>
+            <form class="todo-form" id="todoForm">
+              <label for="todoInput" class="sr-only">오늘 챙길 일 추가</label>
+              <input id="todoInput" type="text" placeholder="오늘 챙길 일을 적어보세요" autocomplete="off" />
+              <button type="submit">추가</button>
+            </form>
+            <ul class="todo-list" id="todoList" aria-live="polite"></ul>
+            <p class="todo-empty" id="todoEmpty">아직 적어둔 할 일이 없어요.</p>
           </article>
 
           <article class="desk-card amount-card">
@@ -130,11 +121,34 @@
               <output id="amountOutput" aria-live="polite">금액을 입력해보세요.</output>
             </div>
           </article>
+
+          <article class="desk-card memo-card">
+            <div class="desk-card-head">
+              <div><strong>빠른 메모</strong><span>전화·확인사항·나중에 볼 링크</span></div>
+              <button class="text-button" id="clearMemoBtn" type="button">비우기</button>
+            </div>
+            <label for="quickMemo" class="sr-only">빠른 메모</label>
+            <textarea id="quickMemo" rows="5" placeholder="잠깐 적어둘 내용을 써두세요. 자동 저장됩니다."></textarea>
+          </article>
         </div>
       </section>
     </main>
 
-    <footer class="footer"><strong>학돌함</strong><span>학교를 잘 돌아가게 하는 행정 자동화 도구함 · v0.1.22</span></footer>
+    <footer class="footer">
+      <div class="footer-brand">
+        <strong>학돌함</strong>
+        <span>학교를 잘 돌아가게 하는 행정 자동화 도구함</span>
+      </div>
+      <div class="footer-meta">
+        <span>Made by <strong>senvip</strong></span>
+        <span class="footer-divider" aria-hidden="true">·</span>
+        <a class="footer-github" href="https://github.com/sen-vip/hakdolham" target="_blank" rel="noopener noreferrer">
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+        <span class="footer-divider" aria-hidden="true">·</span>
+        <span>v0.1.24</span>
+      </div>
+    </footer>
   </div>
   <script src="./app.js"></script>
 </body>
