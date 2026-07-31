@@ -97,7 +97,7 @@ const tools = [
       tags: ["교육청", "법카", "업무추진비"],
       status: "운영중",
       icon: "🏛️",
-      url: "https://sen-vip.github.io/edu-card-map/",
+      url: "https://edu-card-map.vercel.app/",
       updated: "2026.07"
     },
   {
