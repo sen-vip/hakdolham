@@ -76,12 +76,12 @@ const tools = [
     id: "pumshot",
     name: "품샷",
     category: "문서 자동화",
-    description: "견적서 기반 품의 본문과 에듀파인 업로드용 엑셀 작성을 돕는 도구입니다.",
-    tags: ["품의", "견적서", "엑셀", "에듀파인"],
+    description: "견적서 PDF를 바탕으로 품의 본문과 에듀파인 업로드 자료를 빠르게 만드는 문서 자동화 도구입니다.",
+    tags: ["품의", "견적서", "PDF", "엑셀", "에듀파인"],
     status: "비공개",
     icon: "📦",
     url: "",
-    updated: "링크 제외"
+    updated: "비공개"
   },
   {
     id: "jechul-moa",
@@ -162,14 +162,14 @@ const tools = [
   },
   {
     id: "secom",
-    name: "세콤매니저 변환기",
+    name: "세콤매니저용 초과근무 변환기",
     category: "점검·확인",
-    description: "세콤매니저 자료를 초과근무 확인에 쓰기 좋게 변환하는 전용 도구입니다.",
-    tags: ["세콤", "근태", "변환", "초과근무"],
-    status: "준비중",
+    description: "에스원 세콤매니저에서 추출한 출입기록을 NEIS 업로드용 CSV로 변환합니다.",
+    tags: ["세콤", "에스원", "출입기록", "초과근무", "NEIS", "CSV", "변환"],
+    status: "블로그 업로드 준비중",
     icon: "⏱️",
     url: "",
-    updated: "링크 준비중"
+    updated: "블로그 업로드 준비중"
   },
   {
     id: "today-school",
@@ -255,6 +255,7 @@ const favoriteCount = document.querySelector("#favoriteCount");
 function disabledLabel(tool) {
   if (tool.status === "비공개") return "비공개";
   if (tool.status === "블로그 예정") return "블로그 예정";
+  if (tool.status === "블로그 업로드 준비중") return "블로그 업로드 준비중";
   return "준비중";
 }
 
@@ -320,9 +321,9 @@ function renderToolCard(tool) {
         <span class="compact-tool-icon" aria-hidden="true">${tool.icon}</span>
         <span class="compact-tool-copy">
           <strong>${tool.name}</strong>
-          <small>${disabledLabel(tool)}</small>
+          <small>${tool.description}</small>
+          <span class="compact-tool-status">${disabledLabel(tool)}</span>
         </span>
-        <span class="compact-tool-status">${disabledLabel(tool)}</span>
       </div>`;
 
   return `
@@ -813,7 +814,7 @@ function renderPomodoro(statusMessage = "") {
   pomodoroCard.classList.toggle("is-rest", !isFocus);
   document.title = pomodoro.running
     ? `${formatPomodoro(remaining)} · ${isFocus ? "집중 중" : "휴식 중"} | 학돌함`
-    : "학돌함 v0.2.0 | 학교를 돌리는 작은 도구들";
+    : "학돌함 v0.2.1 | 학교를 돌리는 작은 도구들";
 }
 
 function stopPomodoroTicker() {
