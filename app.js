@@ -1,219 +1,245 @@
 const tools = [
-
-  
   {
-      id: "keybox",
-      name: "우리학교 키박스",
-      category: "핵심 도구",
-      description: "학교 공용 사이트·계정·계좌·결제수단을 빠르게 여는 핵심 도구입니다.",
-      tags: ["공용계정", "계좌", "결제수단"],
-      status: "운영중",
-      icon: "🔑",
-      url: "https://sen-vip.github.io/school-keybox/",
-      updated: "매일 사용"
-    },
-{
-      id: "life-calendar",
-      name: "우리학교 생활달력",
-      category: "일정·루틴",
-      description: "학사일정, 급식, 시간표를 한곳에서 확인하는 학교 생활 캘린더입니다.",
-      tags: ["학사일정", "급식", "시간표"],
-      status: "운영중",
-      icon: "🏫",
-      url: "https://sen-vip.github.io/school-life-calendar/",
-      updated: "2026.06"
-    },
+    id: "monthly-tasks",
+    name: "학돌 월별업무판",
+    category: "일정·루틴",
+    description: "이번 달에 해야 할 행정업무와 학사일정을 한 화면에서 확인하고 처리상태까지 관리합니다.",
+    tags: ["월별업무", "업무판", "달력", "학사일정", "행정실"],
+    status: "운영중",
+    icon: "📅",
+    url: "https://sen-vip.github.io/hakdol-monthly-tasks/",
+    updated: "2026.08",
+    featured: true
+  },
   {
-      id: "monthly-tasks",
-      name: "학돌 월별 필수업무",
-      category: "일정·루틴",
-      description: "월별 행정실 필수업무를 한눈에 확인하고 완료 체크할 수 있는 도구입니다.",
-      tags: ["월별업무", "루틴", "신규직원"],
-      status: "운영중",
-      icon: "📅",
-      url: "https://sen-vip.github.io/hakdol-monthly-tasks/",
-      updated: "2026.07"
-    },
+    id: "routine",
+    name: "학돌 루틴집",
+    category: "일정·루틴",
+    description: "시기별·상황별 반복업무를 찾아보고 우리 학교 주기까지 메모해두는 업무 탐색 도구입니다.",
+    tags: ["루틴", "반복업무", "주기", "업무탐색", "체크"],
+    status: "운영중",
+    icon: "🧭",
+    url: "https://sen-vip.github.io/hakdol-routine/",
+    updated: "2026.08",
+    featured: true
+  },
   {
-      id: "routine",
-      name: "학돌 루틴",
-      category: "일정·루틴",
-      description: "행정실 반복 업무를 주기별로 정리하고 검색·필터링하는 루틴 보드입니다.",
-      tags: ["루틴", "반복업무", "체크"],
-      status: "개선중",
-      icon: "🧭",
-      url: "https://sen-vip.github.io/hakdol-routine/",
-      updated: "2026.07"
-    },
+    id: "gongmun-fit",
+    name: "공문핏",
+    category: "문서 자동화",
+    description: "공문의 관련·본문·가나다 순번·붙임 번호를 빠르게 정리하는 공문 작성 보조 도구입니다.",
+    tags: ["공문", "가나다", "순번", "붙임", "문서"],
+    status: "운영중",
+    icon: "📝",
+    url: "https://sen-vip.github.io/gongmun-fit/",
+    updated: "2026.08",
+    featured: true
+  },
   {
-      id: "gongmun-fit",
-      name: "공문핏",
-      category: "문서 자동화",
-      description: "공문 관련·본문·붙임 번호 정리를 빠르게 도와주는 문서 정리 도구입니다.",
-      tags: ["공문", "붙임", "문서"],
-      status: "운영중",
-      icon: "📝",
-      url: "https://sen-vip.github.io/gongmun-fit/",
-      updated: "2026.07"
-    },
+    id: "career-certificate",
+    name: "경력증명 자동화",
+    category: "문서 자동화",
+    description: "경력대장 엑셀을 불러와 자료를 점검하고 경력증명서를 자동 작성·출력합니다.",
+    tags: ["경력증명", "경력대장", "발령대장", "증명서", "엑셀"],
+    status: "NEW",
+    icon: "📄",
+    url: "https://sen-vip.github.io/career-certificate/",
+    updated: "2026.08",
+    featured: true,
+    isNew: true
+  },
   {
-      id: "pumshot",
-      name: "품샷",
-      category: "문서 자동화",
-      description: "견적서 기반 품의 본문과 에듀파인 업로드용 엑셀 작성을 돕는 도구입니다.",
-      tags: ["품의", "견적서", "엑셀"],
-      status: "비공개",
-      icon: "📦",
-      url: "",
-      updated: "링크 제외"
-    },
+    id: "contract-kockgum",
+    name: "계약 콕검",
+    category: "계약·지출",
+    description: "계약 구비서류를 기준 순서대로 빠르게 확인하는 계약 서류 점검 도구입니다.",
+    tags: ["계약", "구비서류", "서류", "점검"],
+    status: "운영중",
+    icon: "📑",
+    url: "https://sen-vip.github.io/contract-kockgum/",
+    updated: "2026.08",
+    featured: true
+  },
   {
-      id: "jechul-moa",
-      name: "제출모아",
-      category: "문서 자동화",
-      description: "제출 파일을 모으고, 미제출자를 확인하고, 파일 정리를 돕는 도구입니다.",
-      tags: ["제출", "파일정리", "미제출확인"],
-      status: "운영중",
-      icon: "📥",
-      url: "https://sen-vip.github.io/jechul-moa/",
-      updated: "2026.07"
-    },
+    id: "school-card-map",
+    name: "학교카드맵",
+    category: "계약·지출",
+    description: "학교카드 사용처를 지도에서 확인하고 업무추진비 사용 흐름을 보기 쉽게 살펴봅니다.",
+    tags: ["학교카드", "법카", "지도", "업무추진비"],
+    status: "운영중",
+    icon: "🗺️",
+    url: "https://school-card-map.vercel.app/",
+    updated: "2026.08",
+    featured: true
+  },
   {
-      id: "school-card-map",
-      name: "학교카드 사용처 지도",
-      category: "계약·지출·카드",
-      description: "학교카드 사용처를 지도에서 확인하고 업무추진비 사용 흐름을 보기 쉽게 정리합니다.",
-      tags: ["학교카드", "지도", "업무추진비"],
-      status: "개선중",
-      icon: "🗺️",
-      url: "https://school-card-map.vercel.app/",
-      updated: "2026.07"
-    },
+    id: "pumshot",
+    name: "품샷",
+    category: "문서 자동화",
+    description: "견적서 기반 품의 본문과 에듀파인 업로드용 엑셀 작성을 돕는 도구입니다.",
+    tags: ["품의", "견적서", "엑셀", "에듀파인"],
+    status: "비공개",
+    icon: "📦",
+    url: "",
+    updated: "링크 제외"
+  },
   {
-      id: "edu-card-map",
-      name: "교육청 법카맵",
-      category: "계약·지출·카드",
-      description: "교육청 업무추진비 공개자료를 지도와 표로 확인하는 도구입니다.",
-      tags: ["교육청", "법카", "업무추진비"],
-      status: "운영중",
-      icon: "🏛️",
-      url: "https://edu-card-map.vercel.app/",
-      updated: "2026.07"
-    },
+    id: "jechul-moa",
+    name: "제출모아",
+    category: "문서 자동화",
+    description: "제출 파일을 모으고 미제출·보완대상을 확인하며 파일 정리를 돕는 도구입니다.",
+    tags: ["제출", "파일정리", "미제출", "수합"],
+    status: "운영중",
+    icon: "📥",
+    url: "https://sen-vip.github.io/jechul-moa/",
+    updated: "2026.07"
+  },
   {
-      id: "annual-contract",
-      name: "연간계약보드",
-      category: "계약·지출·카드",
-      description: "연간 계약, 만료일, 금액, 업체 정보를 한눈에 관리하는 계약 보드입니다.",
-      tags: ["계약", "만료일", "자동이체"],
-      status: "운영중",
-      icon: "📋",
-      url: "https://sen-vip.github.io/annual-contract-board/",
-      updated: "2026.06"
-    },
+    id: "edu-card-map",
+    name: "교육청 법카맵",
+    category: "계약·지출",
+    description: "서울교육 업무추진비 공개자료를 지도와 표로 확인하는 도구입니다.",
+    tags: ["교육청", "법카", "업무추진비", "지도"],
+    status: "운영중",
+    icon: "🏛️",
+    url: "https://sen-vip.github.io/edu-card-map/",
+    updated: "2026.08"
+  },
   {
-      id: "contract-kockgum",
-      name: "계약 콕검",
-      category: "계약·지출·카드",
-      description: "계약 구비서류를 기준 순서대로 빠르게 확인하는 계약 서류 점검 도구입니다.",
-      tags: ["계약", "구비서류", "점검"],
-      status: "운영중",
-      icon: "📑",
-      url: "https://sen-vip.github.io/contract-kockgum/",
-      updated: "2026.07"
-    },
+    id: "annual-contract",
+    name: "연간계약보드",
+    category: "계약·지출",
+    description: "연간 계약, 만료일, 금액, 업체 정보를 한눈에 관리하는 계약 보드입니다.",
+    tags: ["계약", "만료일", "자동이체", "연간계약"],
+    status: "운영중",
+    icon: "📋",
+    url: "https://sen-vip.github.io/annual-contract-board/",
+    updated: "2026.06"
+  },
   {
-      id: "insur-kockgum",
-      name: "보험 콕검",
-      category: "점검·확인",
-      description: "화재, 배상, 여행자보험 등 주요 보험 서류 확인을 돕는 체크 도구입니다.",
-      tags: ["보험", "체크리스트", "점검"],
-      status: "운영중",
-      icon: "🛡️",
-      url: "https://sen-vip.github.io/kockgum-insur/",
-      updated: "2026.06"
-    },
+    id: "inside-travel-kockgum",
+    name: "관내여비 콕검",
+    category: "계약·지출",
+    description: "출장지와 학교 사이 거리를 바탕으로 관내여비 확인 포인트를 빠르게 점검합니다.",
+    tags: ["관내여비", "출장", "거리", "2km", "여비"],
+    status: "운영중",
+    icon: "📍",
+    url: "https://inside-travel-kockgum.vercel.app/",
+    updated: "2026.08"
+  },
   {
-      id: "bus-kockgum",
-      name: "버스 콕검",
-      category: "점검·확인",
-      description: "현장체험학습·수련활동 버스 서류 확인을 단계별로 돕는 체크 도구입니다.",
-      tags: ["버스", "수련활동", "서류점검"],
-      status: "운영중",
-      icon: "🚌",
-      url: "https://sen-vip.github.io/bus-kockgum/",
-      updated: "2026.06"
-    },
+    id: "overtime",
+    name: "초근누구",
+    category: "계약·지출",
+    description: "초과근무 자료와 특근매식비 사용내역을 비교해 확인할 대상을 빠르게 찾습니다.",
+    tags: ["초과근무", "초근", "특근매식비", "지출", "확인"],
+    status: "운영중",
+    icon: "🌙",
+    url: "https://sen-vip.github.io/chogeun-nugu/",
+    updated: "2026.08"
+  },
   {
-      id: "inside-travel-kockgum",
-      name: "관내여비 콕검",
-      category: "점검·확인",
-      description: "관내 출장 거리와 여비 확인 포인트를 빠르게 점검하는 도구입니다.",
-      tags: ["관내여비", "출장", "거리확인"],
-      status: "운영중",
-      icon: "📍",
-      url: "https://inside-travel-kockgum.vercel.app/",
-      updated: "2026.07"
-    },
+    id: "insur-kockgum",
+    name: "보험 콕검",
+    category: "점검·확인",
+    description: "화재·배상·여행자보험 등 주요 보험 서류 확인을 돕는 체크 도구입니다.",
+    tags: ["보험", "체크리스트", "서류", "점검"],
+    status: "운영중",
+    icon: "🛡️",
+    url: "https://sen-vip.github.io/boheom-kockgum/",
+    updated: "2026.06"
+  },
   {
-      id: "overtime",
-      name: "초근누구",
-      category: "점검·확인",
-      description: "초과근무 자료와 카드 사용 자료를 비교해 확인 후보를 정리하는 도구입니다.",
-      tags: ["초과근무", "카드", "확인"],
-      status: "개선중",
-      icon: "🌙",
-      url: "https://sen-vip.github.io/chogeun-nugu/",
-      updated: "2026.07"
-    },
+    id: "bus-kockgum",
+    name: "버스 콕검",
+    category: "점검·확인",
+    description: "현장체험학습·수련활동 버스 임차 제출서류를 단계별로 확인합니다.",
+    tags: ["버스", "수련활동", "현장체험학습", "서류점검"],
+    status: "운영중",
+    icon: "🚌",
+    url: "https://sen-vip.github.io/bus-kockgum/",
+    updated: "2026.06"
+  },
   {
-      id: "secom",
-      name: "세콤매니저 변환기",
-      category: "점검·확인",
-      description: "세콤매니저 자료를 초과근무 확인에 쓰기 좋게 변환하는 전용 도구입니다.",
-      tags: ["세콤", "근태", "변환"],
-      status: "블로그 예정",
-      icon: "⏱️",
-      url: "",
-      updated: "링크 준비중"
-    },
+    id: "secom",
+    name: "세콤매니저 변환기",
+    category: "점검·확인",
+    description: "세콤매니저 자료를 초과근무 확인에 쓰기 좋게 변환하는 전용 도구입니다.",
+    tags: ["세콤", "근태", "변환", "초과근무"],
+    status: "준비중",
+    icon: "⏱️",
+    url: "",
+    updated: "링크 준비중"
+  },
   {
-      id: "ansa",
-      name: "안 샀다",
-      category: "실험실",
-      description: "가짜 쇼핑과 배송 시뮬레이션으로 소비 충동을 잠깐 식히는 실험 도구입니다.",
-      tags: ["실험", "소비", "시뮬레이션"],
-      status: "실험중",
-      icon: "🛍️",
-      url: "https://sen-vip.github.io/ansa/",
-      updated: "2026.07"
-    }
+    id: "today-school",
+    name: "오늘학교",
+    category: "학교생활",
+    description: "오늘의 학사일정·급식·시간표를 한 화면에서 확인하는 학교생활 캘린더입니다.",
+    tags: ["오늘학교", "학사일정", "급식", "시간표", "학교생활"],
+    status: "운영중",
+    icon: "🏫",
+    url: "https://sen-vip.github.io/school-life-calendar/",
+    updated: "2026.08"
+  },
+  {
+    id: "school-calendar",
+    name: "전국 학사일정",
+    category: "학교생활",
+    description: "지역과 학교를 선택해 학교별 학사일정을 월별로 빠르게 조회합니다.",
+    tags: ["학사일정", "학교", "달력", "나이스", "NEIS"],
+    status: "운영중",
+    icon: "🗓️",
+    url: "https://sen-vip.github.io/school-calendar/",
+    updated: "2026.07"
+  },
+  {
+    id: "ansa",
+    name: "안 샀다",
+    category: "실험실",
+    description: "가짜 쇼핑과 배송 시뮬레이션으로 소비 충동을 잠깐 식히는 개인 실험 도구입니다.",
+    tags: ["실험", "소비", "시뮬레이션"],
+    status: "실험중",
+    icon: "🛍️",
+    url: "https://sen-vip.github.io/ansa/",
+    updated: "2026.07"
+  }
 ];
 
 const CATEGORY_ORDER = [
-  "핵심 도구",
   "일정·루틴",
   "문서 자동화",
-  "계약·지출·카드",
+  "계약·지출",
   "점검·확인",
+  "학교생활",
   "실험실"
 ];
 
 const CATEGORY_DESCRIPTIONS = {
-  "핵심 도구": "매일 여는 핵심 도구",
-"일정·루틴": "달력과 반복 업무",
-  "문서 자동화": "공문과 품의 작성",
-  "계약·지출·카드": "계약·지출·학교카드",
+  "일정·루틴": "이번 달과 반복 업무",
+  "문서 자동화": "공문·증명서·파일 처리",
+  "계약·지출": "계약·카드·여비·지출",
   "점검·확인": "서류와 근태 확인",
+  "학교생활": "학사일정·급식·시간표",
   "실험실": "가볍게 시험 중인 도구"
 };
+
+const FEATURED_IDS = [
+  "monthly-tasks",
+  "routine",
+  "gongmun-fit",
+  "career-certificate",
+  "contract-kockgum",
+  "school-card-map"
+];
 
 const state = {
   query: "",
   favoriteOnly: false,
-  favorites: new Set(JSON.parse(localStorage.getItem("hakdolham:favorites") || "[]"))
+  favorites: new Set(JSON.parse(localStorage.getItem("hakdolham:favorites") || "[]").filter(id => tools.some(tool => tool.id === id)))
 };
 
+const featuredGrid = document.querySelector("#featuredGrid");
 const grid = document.querySelector("#toolGrid");
 const emptyState = document.querySelector("#emptyState");
 const searchInput = document.querySelector("#searchInput");
@@ -259,13 +285,33 @@ function highlightText(text, query) {
   return String(text).replace(new RegExp(`(${escaped})`, "ig"), "<mark>$1</mark>");
 }
 
+function renderFeaturedTools() {
+  if (!featuredGrid) return;
+  featuredGrid.innerHTML = FEATURED_IDS
+    .map(id => tools.find(tool => tool.id === id))
+    .filter(Boolean)
+    .map(tool => `
+      <a class="featured-card" href="${tool.url}" target="_blank" rel="noopener noreferrer" data-open-tool="${tool.id}">
+        <span class="featured-icon" aria-hidden="true">${tool.icon}</span>
+        <span class="featured-copy">
+          <span class="featured-title-row">
+            <strong>${tool.name}</strong>
+            ${tool.isNew ? '<em class="new-badge">NEW</em>' : ''}
+          </span>
+          <small>${tool.description}</small>
+        </span>
+        <span class="featured-arrow" aria-hidden="true">→</span>
+      </a>
+    `).join("");
+}
+
 function renderToolCard(tool) {
   const isFavorite = state.favorites.has(tool.id);
   const action = tool.url
     ? `<a class="tool-card-link" href="${tool.url}" target="_blank" rel="noopener noreferrer" data-open-tool="${tool.id}">
         <span class="compact-tool-icon" aria-hidden="true">${tool.icon}</span>
         <span class="compact-tool-copy">
-          <strong>${tool.name}</strong>
+          <strong>${tool.name}${tool.isNew ? ' <em class="inline-new-badge">NEW</em>' : ''}</strong>
           <small>${tool.description}</small>
         </span>
         <span class="compact-tool-arrow" aria-hidden="true">→</span>
@@ -375,6 +421,7 @@ function renderSearchResults() {
 }
 
 function render() {
+  renderFeaturedTools();
   renderToolBoard();
   renderSearchResults();
   totalCount.textContent = tools.length;
@@ -766,7 +813,7 @@ function renderPomodoro(statusMessage = "") {
   pomodoroCard.classList.toggle("is-rest", !isFocus);
   document.title = pomodoro.running
     ? `${formatPomodoro(remaining)} · ${isFocus ? "집중 중" : "휴식 중"} | 학돌함`
-    : "학돌함 v0.1.24 | 학교를 잘 돌아가게 하는 도구함";
+    : "학돌함 v0.2.0 | 학교를 돌리는 작은 도구들";
 }
 
 function stopPomodoroTicker() {

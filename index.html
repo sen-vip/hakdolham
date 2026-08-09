@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="학교를 잘 돌아가게 하는 행정 자동화 도구를 한곳에 모은 학돌함입니다." />
+  <meta name="description" content="학돌랩에서 만든 학교 업무 도구를 한곳에서 빠르게 찾는 학돌함입니다." />
   <meta name="theme-color" content="#f7f8fc" />
-  <title>학돌함 v0.1.24 | 학교를 잘 돌아가게 하는 도구함</title>
+  <title>학돌함 v0.2.0 | 학교를 돌리는 작은 도구들</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="./style.css" />
 </head>
@@ -15,23 +15,23 @@
       <nav class="topbar" aria-label="상단 메뉴">
         <a class="brand" href="./index.html" aria-label="학돌함 홈">
           <span class="brand-mark" aria-hidden="true">◆</span>
-          <span><strong>학돌함</strong><small>학교를 잘 돌아가게 하는 도구함</small></span>
+          <span><strong>학돌함</strong><small>학돌랩 학교 업무 도구함</small></span>
         </a>
         <div class="top-actions">
           <button class="ghost-button" id="favoriteOnlyBtn" type="button" aria-pressed="false">즐겨찾기만</button>
-          <a class="ghost-link" href="#toolBoard">업무별 도구</a>
+          <a class="ghost-link" href="#toolBoard">전체 도구</a>
         </div>
       </nav>
 
       <section class="hero-card">
         <div class="hero-copy">
-          <p class="eyebrow">학돌랩 업무 데스크</p>
-          <h1>필요한 도구를<br />바로 찾아 꺼내세요.</h1>
-          <p class="hero-desc">업무명으로 검색하거나, 아래 업무분류표에서 한눈에 찾을 수 있어요.</p>
+          <p class="eyebrow">학교를 돌리는 작은 도구들</p>
+          <h1>오늘 필요한 도구를<br />바로 꺼내 쓰세요.</h1>
+          <p class="hero-desc">일정부터 공문, 계약, 지출, 점검까지<br class="mobile-break" /> 학교 업무에 필요한 학돌랩 도구를 한곳에서 찾아보세요.</p>
           <div class="search-wrap">
             <label for="searchInput" class="sr-only">도구 검색</label>
             <span class="search-icon" aria-hidden="true">⌕</span>
-            <input id="searchInput" type="search" placeholder="공문, 계약, 카드처럼 업무명으로 검색하세요" autocomplete="off" />
+            <input id="searchInput" type="search" placeholder="공문, 경력, 계약, 카드처럼 검색하세요" autocomplete="off" />
             <button id="clearSearchBtn" type="button" aria-label="검색어 지우기">×</button>
           </div>
 
@@ -47,7 +47,7 @@
           <div class="hero-meta" aria-label="도구 요약">
             <span><b id="totalCount">0</b>개 도구</span>
             <span><b id="favoriteCount">0</b>개 즐겨찾기</span>
-            <span>v0.1.24</span>
+            <span>v0.2.0</span>
           </div>
         </div>
         <div class="hero-symbol" aria-hidden="true">
@@ -57,10 +57,21 @@
     </header>
 
     <main>
-<section class="tool-directory" id="toolBoard" aria-label="업무별 도구">
+      <section class="featured-section" aria-labelledby="featuredTitle">
+        <div class="section-head featured-head">
+          <div>
+            <p class="eyebrow">START HERE</p>
+            <h2 id="featuredTitle">자주 찾는 도구</h2>
+          </div>
+          <p class="section-desc">지금 학돌랩에서 가장 먼저 꺼내 쓰기 좋은 도구들이에요.</p>
+        </div>
+        <div class="featured-grid" id="featuredGrid"></div>
+      </section>
+
+      <section class="tool-directory" id="toolBoard" aria-label="업무별 전체 도구">
         <div class="section-head tools-head">
-          <div><p class="eyebrow">TOOLS BY WORK</p><h2>업무별 도구</h2></div>
-          <p class="section-desc">탭을 넘기지 않고, 업무 분류별로 도구를 한 번에 훑어보세요.</p>
+          <div><p class="eyebrow">ALL TOOLS</p><h2>업무별 전체 도구</h2></div>
+          <p class="section-desc">해야 할 업무를 기준으로 찾으면 필요한 도구가 더 빨리 보여요.</p>
         </div>
         <div class="tool-board" id="toolGrid" aria-live="polite"></div>
         <section class="empty-state" id="emptyState" hidden>
@@ -70,13 +81,13 @@
         </section>
       </section>
 
-      <section class="desk-section" aria-label="나의 책상">
+      <section class="desk-section" aria-label="오늘의 작은 책상">
         <div class="desk-head">
           <div>
             <p class="eyebrow">MY DESK</p>
-            <h2>나의 책상</h2>
+            <h2>오늘의 작은 책상</h2>
           </div>
-          <p>오늘 자주 쓰는 작은 기능들이에요. 입력한 내용은 이 브라우저에만 저장됩니다.</p>
+          <p>집중 타이머, 할 일, 금액 변환, 빠른 메모 같은 작은 기능은 여기 모아뒀어요.</p>
         </div>
 
         <div class="desk-grid">
@@ -137,7 +148,7 @@
     <footer class="footer">
       <div class="footer-brand">
         <strong>학돌함</strong>
-        <span>학교를 잘 돌아가게 하는 행정 자동화 도구함</span>
+        <span>학교를 돌리는 작은 도구들</span>
       </div>
       <div class="footer-meta">
         <span>Made by <strong>senvip</strong></span>
@@ -146,7 +157,7 @@
           GitHub <span aria-hidden="true">↗</span>
         </a>
         <span class="footer-divider" aria-hidden="true">·</span>
-        <span>v0.1.24</span>
+        <span>v0.2.0</span>
       </div>
     </footer>
   </div>
